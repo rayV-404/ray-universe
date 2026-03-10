@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>J&R – Personal Belongings Shelf</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-image: url('images/wallpaper.jpg');
+      background-size: cover;
+      background-position: center center;
+      background-repeat: no-repeat;
+      margin: 0;
+      padding: 0;
+      font-family: 'Georgia', serif;
+      color: #fff;
+      overflow-x: hidden;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      padding: 20px 0 60px;
+    }
+
+    /* ── Page title ── */
+    .page-title {
+      font-family: 'Cinzel Decorative', serif;
+      font-size: 35px;
+      font-weight: 400;
+      letter-spacing: 0.18em;
+      color: #b8ccd8;
+      text-align: center;
+       margin-top: 40px;
+      text-shadow:
+        0 0 6px  rgba(180,200,220,0.6),
+        0 0 14px rgba(160,190,215,0.4),
+        0 0 32px rgba(130,170,210,0.25);
+      animation: titleFlicker 6s ease-in-out infinite;
+    }
+
+    @keyframes titleFlicker {
+      0%,  100% { opacity: 1;    text-shadow: 0 0 6px rgba(180,200,220,0.6),  0 0 14px rgba(160,190,215,0.4),  0 0 32px rgba(130,170,210,0.25); }
+      18%        { opacity: 0.86; text-shadow: 0 0 3px rgba(180,200,220,0.25), 0 0 8px  rgba(160,190,215,0.15), 0 0 18px rgba(130,170,210,0.08); }
+      20%        { opacity: 1;    text-shadow: 0 0 9px rgba(180,200,220,0.8),  0 0 20px rgba(160,190,215,0.55), 0 0 44px rgba(130,170,210,0.35); }
+      55%        { opacity: 0.92; text-shadow: 0 0 5px rgba(180,200,220,0.4),  0 0 12px rgba(160,190,215,0.25), 0 0 26px rgba(130,170,210,0.15); }
+      57%        { opacity: 1;    text-shadow: 0 0 7px rgba(180,200,220,0.65), 0 0 16px rgba(160,190,215,0.4),  0 0 36px rgba(130,170,210,0.25); }
+    }
+
+    /* ── Cabinet wrapper ── */
+    .cabinet-wrapper {
+      position: relative;
+      width: 720px;
+      user-select: none;
+    }
+
+    .cabinet-bg {
+      width: 100%;
+      display: block;
+      pointer-events: none;
+    }
+
+    /* ── Item slots overlaid on the shelf image ── */
+    .shelf-items {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      pointer-events: none;
+    }
+
+    .item {
+      position: absolute;
+      pointer-events: all;
+      cursor: pointer;
+      transition: transform 0.28s ease;
+    }
+
+    .item img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+      pointer-events: none;
+      filter: drop-shadow(0 0 0px transparent);
+      transition: filter 0.28s ease, transform 0.28s ease;
+    }
+
+    /* Glow follows the transparent PNG silhouette */
+    .item.ray:hover    img { filter: drop-shadow(0 0 12px #c084fc) drop-shadow(0 0 24px #a855f7); }
+    .item.john:hover   img { filter: drop-shadow(0 0 12px #60a5fa) drop-shadow(0 0 24px #3b82f6); }
+    .item.couple:hover img { filter: drop-shadow(0 0 12px #f9a8d4) drop-shadow(0 0 24px #ec4899); }
+    .item:hover { transform: scale(1.12); }
+
+    /* ── Cursor tooltip ── */
+    #tooltip {
+      position: fixed;
+      pointer-events: none;
+      background: rgba(10,8,25,0.92);
+      border: 1px solid rgba(255,255,255,0.15);
+      color: #e2d9f3;
+      font-size: 12px;
+      font-family: 'Georgia', serif;
+      letter-spacing: 0.04em;
+      padding: 5px 10px;
+      border-radius: 6px;
+      white-space: nowrap;
+      display: none;
+      z-index: 9999;
+      backdrop-filter: blur(4px);
+    }
+
+    /* ── Secret door triggers (invisible) ── */
+    .door-trigger {
+      position: absolute;
+      cursor: pointer;
+      z-index: 200;
+      background: transparent;
+      border: none;
+      outline: none;
+    }
+
+    /* ── Cabinet shake ── */
+    @keyframes cabinetShake {
+      0%   { transform: translateX(0); }
+      20%  { transform: translateX(-6px); }
+      40%  { transform: translateX(6px); }
+      60%  { transform: translateX(-4px); }
+      80%  { transform: translateX(4px); }
+      100% { transform: translateX(0); }
+    }
+    .cabinet-wrapper.shake { animation: cabinetShake 0.35s ease; }
+
+    /* ── Unified overlay ── */
+    #itemOverlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.82);
+      z-index: 800;
+      display: none;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      gap: 24px;
+      backdrop-filter: blur(6px);
+    }
+    #itemOverlay.show { display: flex; }
+
+    #overlayClose {
+      position: fixed;
+      top: 24px; right: 32px;
+      background: transparent;
+      border: none;
+      color: rgba(255,255,255,0.5);
+      font-size: 28px;
+      cursor: pointer;
+      z-index: 900;
+      transition: color 0.2s;
+      line-height: 1;
+    }
+    #overlayClose:hover { color: #fff; }
+
+    /* Column: thought bubble on top, image below */
+    #overlayTopRow {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+    }
+
+    #overlayImgWrap {
+      display: flex;
+      justify-content: center;
+    }
+
+    #overlayImg {
+      max-width: 300px;
+      max-height: 300px;
+      object-fit: contain;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: filter 0.25s ease;
+    }
+
+    /* Subtle pulse hint that image is clickable */
+    #overlayImg.clickable-hint {
+      animation: subtlePulse 2s ease-in-out infinite;
+    }
+    @keyframes subtlePulse {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: 0.82; }
+    }
+
+    /* ── Hidden thought bubble — sits above the image ── */
+    #hiddenThought {
+      position: relative;
+      max-width: 340px;
+      width: 90vw;
+      background: rgba(10,8,28,0.96);
+      border: 1px solid rgba(255,255,255,0.18);
+      border-radius: 14px;
+      padding: 14px 20px;
+      font-size: 13px;
+      font-style: italic;
+      line-height: 1.75;
+      text-align: center;
+      opacity: 0;
+      pointer-events: none;
+      order: -1;
+      transform: translateY(-10px) scale(0.92);
+      transition: opacity 0.35s ease, transform 0.38s cubic-bezier(0.34,1.4,0.64,1);
+    }
+
+    #hiddenThought.visible {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      pointer-events: auto;
+    }
+
+    /* Label above the quote */
+    #hiddenThought::before {
+      content: '✦ hidden thought ✦';
+      display: block;
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.35);
+      margin-bottom: 8px;
+      font-style: normal;
+    }
+
+    /* Downward tail pointing toward the image */
+    #hiddenThought::after {
+      content: '';
+      position: absolute;
+      bottom: -9px;
+      left: 50%;
+      transform: translateX(-50%);
+      border: 9px solid transparent;
+      border-top-color: rgba(255,255,255,0.18);
+    }
+
+    /* Quote colour per speaker */
+    #hiddenThought.speaker-john { color: #93c5fd; }
+    #hiddenThought.speaker-ray  { color: #d8b4fe; }
+
+    #overlayInfo {
+      background: rgba(10,8,28,0.94);
+      border: 1px solid rgba(255,255,255,0.13);
+      padding: 20px 28px;
+      border-radius: 14px;
+      max-width: 460px;
+      width: 90vw;
+      text-align: center;
+      font-size: 14px;
+      line-height: 1.8;
+      color: #ddd6fe;
+    }
+    #overlayInfo strong {
+      display: block;
+      margin-bottom: 10px;
+      font-size: 16px;
+      color: #fff;
+      letter-spacing: 0.03em;
+    }
+
+    /* Accent border colour per owner */
+    #overlayInfo.accent-ray    { border-color: rgba(192,132,252,0.5); }
+    #overlayInfo.accent-john   { border-color: rgba(96,165,250,0.5);  }
+    #overlayInfo.accent-couple { border-color: rgba(249,168,212,0.5); }
+    #overlayInfo.accent-secret { border-color: rgba(253,230,138,0.4); }
+
+    /* Pop-in animation */
+    @keyframes popIn {
+      from { transform: scale(0.5); opacity: 0; }
+      to   { transform: scale(1);   opacity: 1; }
+    }
+    .pop-anim       { animation: popIn 0.42s cubic-bezier(0.34,1.56,0.64,1) both; }
+    .pop-anim-delay { animation: popIn 0.46s 0.08s cubic-bezier(0.34,1.56,0.64,1) both; }
+
+    /* Image glow in overlay */
+    #overlayImg.glow-ray    { filter: drop-shadow(0 0 18px #c084fc) drop-shadow(0 0 36px #a855f788); }
+    #overlayImg.glow-john   { filter: drop-shadow(0 0 18px #60a5fa) drop-shadow(0 0 36px #3b82f688); }
+    #overlayImg.glow-couple { filter: drop-shadow(0 0 18px #f9a8d4) drop-shadow(0 0 36px #ec489988); }
+    #overlayImg.glow-secret { filter: drop-shadow(0 0 18px #fde68a) drop-shadow(0 0 36px #f59e0b88); }
+  </style>
+</head>
+<body>
+
+<h1 class="page-title">Midnight Reverie</h1>
+
+<div class="cabinet-wrapper" id="cabinetWrapper">
+
+  <img class="cabinet-bg" src="images/shelf.png" alt="Shelf" />
+
+  <div class="shelf-items">
+
+    <!-- Ray's Plushie -->
+    <div class="item ray"
+         style="left:32%; top:18%; width:16%;"
+         data-title="Ray's Plushie"
+         data-img="images/ray_plushie.png"
+         data-text="Emergency cuddle unit when drummer is offline.<br>(John: 'I've seen her kiss it goodnight. With tongue.')"
+         data-owner="ray">
+      <img src="images/ray_plushie.png" alt="Ray's Plushie" />
+    </div>
+
+    <!-- Ray's Skull Hair Clip -->
+    <div class="item ray"
+         style="left:53%; top:23%; width:15%;"
+         data-title="Ray's Skull Hair Clip"
+         data-img="images/ray_clip.png"
+         data-text="The TOP necessity. <br>(John: 'That thing would curse you. Don't ask me how I know.')"
+         data-owner="ray">
+      <img src="images/ray_clip.png" alt="Ray's Skull Hair Clip" />
+    </div>
+
+    <!-- Ray's Vinyl -->
+    <div class="item ray"
+         style="left:28%; top:28%; width:22%;"
+         data-title="Ray's Vinyl Collection"
+         data-img="images/ray_vinyl.png"
+         data-text="Heavy. Dusty. Moody. Perfect. <br>(John: 'She says it's vibe, but most sound like someone crying in a hallway.')"
+         data-owner="ray">
+      <img src="images/ray_vinyl.png" alt="Ray's Vinyl Collection" />
+    </div>
+
+    <!-- Couple picture -->
+    <div class="item couple"
+         style="left:52%; top:33%; width:20%;"
+         data-title="J &amp; R"
+         data-img="images/couple_pic.png"
+         data-text="Captured: one stolen moment. Studio lighting not included. <br>John: &ldquo;She swore up and down she wasn&rsquo;t posing. She lied. <br>Look at that skull clip glinting&mdash;she was ready.&rdquo;&#10;&#10;Proof that softness exists, but only in glimpses.<br>Ray: &ldquo;He insists this was candid. It wasn&rsquo;t. He kissed my cheek like we were filming a romantic movie and told me to &lsquo;hold still.&rsquo;<br>I listened anyway.&rdquo;"
+         data-owner="couple">
+      <img src="images/couple_pic.png" alt="Couple Picture" />
+    </div>
+
+    <!-- John's Ring Case -->
+    <div class="item john"
+         style="left:28%; top:48%; width:22%;"
+         data-title="John's Ring Case"
+         data-img="images/john_rings.png"
+         data-text="Tiny box, dangerous contents. <br>(Ray: 'He wears them like armor. But one of them is mine.')"
+         data-owner="john">
+      <img src="images/john_rings.png" alt="John's Ring Case" />
+    </div>
+
+    <!-- John's Perfume -->
+    <div class="item john"
+         style="left:53%; top:49%; width:10%;"
+         data-title="John's Perfume Bottle"
+         data-img="images/john_perfume.png"
+         data-text="Smells like temptation with trust issues. <br> (Ray: 'He sprays it when he's «just going to the studio.» Sure.')"
+         data-owner="john">
+      <img src="images/john_perfume.png" alt="John's Perfume" />
+    </div>
+
+    <!-- John's Whiskey -->
+    <div class="item john"
+         style="left:63%; top:48%; width:11%;"
+         data-title="John's Whiskey Bottle"
+         data-img="images/john_whiskey.png"
+         data-text="Not a coping mechanism if it's aged twelve years, right?<br> (Ray: 'He says it's just for the taste. At midnight. Alone.')"
+         data-owner="john">
+      <img src="images/john_whiskey.png" alt="John's Whiskey" />
+    </div>
+
+  </div><!-- /shelf-items -->
+
+  <!-- Invisible drawer triggers -->
+  <div class="door-trigger"
+       style="left:28%; top:67%; width:20%; height:8%;"
+       onclick="handleDoorClick('left')"></div>
+  <div class="door-trigger"
+       style="left:52%; top:67%; width:20%; height:8%;"
+       onclick="handleDoorClick('right')"></div>
+
+</div><!-- /cabinet-wrapper -->
+
+<!-- Cursor tooltip -->
+<div id="tooltip"></div>
+
+<!-- Unified overlay -->
+<div id="itemOverlay">
+  <button id="overlayClose">✕</button>
+
+  <!-- Top row: hidden thought (maybe) | image | hidden thought (maybe) -->
+  <div id="overlayTopRow">
+    <!-- Thought bubble: position (left/right) set dynamically by JS -->
+    <div id="hiddenThought"></div>
+    <div id="overlayImgWrap">
+      <img id="overlayImg" src="" alt="" />
+    </div>
+  </div>
+
+  <!-- Info box — always visible, never affected by easter egg -->
+  <div id="overlayInfo">
+    <strong id="overlayTitle"></strong>
+    <p id="overlayText"></p>
+  </div>
+</div>
+
+<script>
+  /* ── Hidden thought quotes per item (speaker: 'john' = blue, 'ray' = purple) ── */
+  const easterEggs = {
+    "Ray's Vinyl Collection": [
+      { speaker: 'john', text: "It's less 'vibe' and more 'crying in the rain' 90% of the time. But she swears I just don't get it." },
+      { speaker: 'john', text: "Her playlist is a mix of heartbreak anthems and songs she blasts at 2 AM. Trust me, I've been serenaded." },
+      { speaker: 'john', text: "She calls it 'timeless,' <br>I call it 'don't open my eyes in the morning.'" }
+    ],
+    "Ray's Plushie": [
+      { speaker: 'john', text: "I saw her tuck it under the blanket once. <br>It was getting cold, apparently." },
+      { speaker: 'john', text: "I've caught her whispering to it. <br>She denies everything, obviously." },
+      { speaker: 'john', text: "She insists it's cute. <br>I still think it's judging me from the shelf." }
+    ],
+    "Ray's Skull Hair Clip": [
+      { speaker: 'john', text: "Imagine surviving public events and looking sharp. That clip deserves a medal." },
+      { speaker: 'john', text: "I swear it glows under moonlight when she's angry. Just saying." },
+      { speaker: 'john', text: "I once joked about it being cursed.<br>It might have been a mistake." }
+    ],
+    "John's Ring Case": [
+      { speaker: 'ray', text: "Don't be fooled—he picks these like they're weapons in an RPG." },
+      { speaker: 'ray', text: "He says they're for style,but we both know he likes the idea of marking his territory." },
+      { speaker: 'ray', text: "He'd never admit which one I gave him,but I catch him wearing it every time we fight." }
+    ],
+    "John's Whiskey Bottle": [
+      { speaker: 'ray', text: "He says it's a 'mature taste.'<br>I call it his liquid courage for bad decisions involving me." },
+      { speaker: 'ray', text: "He claims it helps him think.<br>I know it helps him sleep with one eye open." },
+      { speaker: 'ray', text: "He promises it's just a taste...<br>then blames me when the bottle's empty." }
+    ],
+    "John's Perfume Bottle": [
+      { speaker: 'ray', text: "Every time I catch it, I know I'm in trouble—or worse,he knows I'm already his." },
+      { speaker: 'ray', text: "His secret weapon for keeping me close.<br>Like I'm going anywhere." },
+      { speaker: 'ray', text: "He says it's an 'invitation.'<br>I say, at least buy me dinner first!" }
+    ]
+  };
+
+  function pickRandomEaster(title) {
+    const pool = easterEggs[title];
+    if (!pool) return null;
+    return pool[Math.floor(Math.random() * pool.length)];
+  }
+
+  /* ── Tooltip ── */
+  const tooltip = document.getElementById('tooltip');
+  document.addEventListener('mousemove', e => {
+    tooltip.style.left = (e.clientX + 14) + 'px';
+    tooltip.style.top  = (e.clientY - 10) + 'px';
+  });
+
+  /* ── Overlay ── */
+  const overlay       = document.getElementById('itemOverlay');
+  const overlayImg    = document.getElementById('overlayImg');
+  const overlayInfo   = document.getElementById('overlayInfo');
+  const overlayTitle  = document.getElementById('overlayTitle');
+  const overlayText   = document.getElementById('overlayText');
+  const hiddenThought = document.getElementById('hiddenThought');
+
+  let currentTitle      = null;
+  let currentOwner      = null;
+  let overlayClickState = 0; // 0=closed, 1=normal open, 2=thought visible
+
+  function openOverlay(imgSrc, title, text, owner) {
+    overlayImg.className  = '';
+    overlayInfo.className = '';
+    void overlayImg.offsetWidth;
+
+    const hasEaster = !!easterEggs[title];
+
+    overlayImg.src        = imgSrc;
+    overlayImg.alt        = title;
+    overlayImg.className  = 'pop-anim glow-' + owner + (hasEaster ? ' clickable-hint' : '');
+    overlayInfo.className = 'pop-anim-delay accent-' + owner;
+
+    overlayTitle.textContent = title;
+    overlayText.innerHTML    = text.replace(/\n/g, '<br>');
+
+    hideThought();
+
+    currentTitle      = title;
+    currentOwner      = owner;
+    overlayClickState = 1;
+
+    overlay.classList.add('show');
+  }
+
+  function showThought() {
+    const egg = pickRandomEaster(currentTitle);
+    if (!egg) return;
+
+    // Reset classes then set speaker colour
+    hiddenThought.className = 'speaker-' + egg.speaker;
+    hiddenThought.innerHTML = egg.text;
+
+    void hiddenThought.offsetWidth;
+    hiddenThought.classList.add('visible');
+    overlayClickState = 2;
+  }
+
+  function hideThought() {
+    hiddenThought.classList.remove('visible');
+    hiddenThought.className = '';
+    overlayClickState = 1;
+  }
+
+  function closeOverlay() {
+    overlay.classList.remove('show');
+    hideThought();
+    overlayClickState = 0;
+    currentTitle = null;
+  }
+
+  /* Click on enlarged image: cycle state 1 → 2 → 1 */
+  overlayImg.addEventListener('click', e => {
+    e.stopPropagation();
+    if (!easterEggs[currentTitle]) return;
+
+    if (overlayClickState === 1) {
+      showThought();
+    } else if (overlayClickState === 2) {
+      hideThought(); // back to start
+    }
+  });
+
+  document.getElementById('overlayClose').addEventListener('click', closeOverlay);
+  overlay.addEventListener('click', e => { if (e.target === overlay) closeOverlay(); });
+
+  /* ── Items ── */
+  document.querySelectorAll('.item').forEach(item => {
+    item.addEventListener('mouseenter', () => {
+      tooltip.textContent   = item.dataset.title;
+      tooltip.style.display = 'block';
+    });
+    item.addEventListener('mouseleave', () => {
+      tooltip.style.display = 'none';
+    });
+
+    item.addEventListener('click', e => {
+      e.stopPropagation();
+      openOverlay(
+        item.dataset.img,
+        item.dataset.title,
+        item.dataset.text,
+        item.dataset.owner
+      );
+    });
+  });
+
+  /* ── Secret Doors ── */
+  const secretClicks = { left: 0, right: 0 };
+  const cabinet      = document.getElementById('cabinetWrapper');
+
+  const secretData = {
+    left: {
+      img:   'images/john_sunflower.png',
+      title: '🌻 John\'s Sunflower Toy',
+      text:  'Old. Fuzzy. Probably cursed.<br>(Ray: "He says it reminds him of childhood. I say it reminds me he\'s a soft-ass liar with killer abs.")',
+      owner: 'secret'
+    },
+    right: {
+      img:   'images/ray_box.png',
+      title: '📦 Ray\'s Letter Box',
+      text:  'Contains: 17 love notes, 3 breakup threats, and one photo where she looks way too happy.<br>(John: "I didn\'t even know she kept that shot. She looks like sunshine. She\'d never let me say it out loud.")',
+      owner: 'secret'
+    }
+  };
+
+  function handleDoorClick(side) {
+    secretClicks[side]++;
+    if (secretClicks[side] < 3) {
+      cabinet.classList.remove('shake');
+      void cabinet.offsetWidth;
+      cabinet.classList.add('shake');
+      cabinet.addEventListener('animationend', () => cabinet.classList.remove('shake'), { once: true });
+    } else {
+      secretClicks[side] = 0;
+      const d = secretData[side];
+      openOverlay(d.img, d.title, d.text, d.owner);
+    }
+  }
+</script>
+</body>
+</html>

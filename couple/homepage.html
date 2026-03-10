@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SoValte Terminal</title>
+   <base target="_top">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=EB+Garamond&family=Orbitron:wght@600&family=Zen+Tokyo+Zoo&display=swap');
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: radial-gradient(circle at center, #0e0b16, #1a0d2f);
+      color: #fff;
+      font-family: 'EB Garamond', serif;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    #boot-screen {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: #000;
+      color: #a855f7;
+      font-family: 'Orbitron', sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      z-index: 10;
+    }
+
+    #boot-text {
+      display: inline-block;
+      overflow: hidden;
+      white-space: nowrap;
+      border-right: 0.15em solid #a855f7;
+      animation: typing 2.5s steps(34, end), blink-caret 0.75s step-end infinite;
+      width: 21ch; /* 固定宽度为字符数量 */
+    }
+
+    @keyframes typing {
+      from { width: 0; }
+      to { width: 21ch; }
+    }
+
+    @keyframes blink-caret {
+      from, to { border-color: transparent; }
+      50% { border-color: #a855f7; }
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      text-align: center;
+      gap: 40px;
+      opacity: 0;
+      animation: fadeIn 1s ease-in-out 3.7s forwards;
+    }
+
+    h1 {
+      font-family: 'Zen Tokyo Zoo', cursive;
+      font-size: 3rem;
+      color: #e9d5ff;
+      text-shadow: 0 0 10px #a855f7, 0 0 20px #9333ea;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(180px, 1fr));
+      gap: 30px;
+      max-width: 600px;
+      width: 90%;
+    }
+
+    .module {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid #a855f7;
+      border-radius: 16px;
+      padding: 20px;
+      font-size: 1.1rem;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      text-shadow: 0 0 3px #a855f7;
+    }
+
+    .module:hover {
+      transform: scale(1.05) rotate(-1deg);
+      box-shadow: 0 0 20px #a855f7;
+      background-color: rgba(168, 85, 247, 0.1);
+    }
+
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+      }
+    }
+
+  .cursor-dot {
+position: fixed;
+pointer-events: none;
+width: 8px;
+height: 8px;
+border-radius: 50%;
+background: rgba(203, 146, 255, 0.6);
+box-shadow: 0 0 6px 4px rgba(203, 146, 255, 0.6);
+animation: fadeOut 1s ease forwards;
+z-index: 9999;   
+}
+
+
+@keyframes fadeOut {
+0% {
+transform: scale(1);
+opacity: 1;
+}
+100% {
+transform: scaleX(2) scaleY(0.5);
+opacity: 0;
+}
+}
+
+
+  </style>
+</head>
+<body>
+
+  <div class="cursor-glitter-container"></div>
+
+  <div id="boot-screen">
+    <div id="boot-text">Booting into SoValte Terminal...</div>
+  </div>
+
+  <div class="container">
+    <h1>SoValte Terminal</h1>
+   <div class="grid">
+  <div class="module" onclick="window.open('my love/letters from John.html', '_blank')">Saved Notes</div>
+  <div class="module" onclick="window.open('timeline2.0.html', '_blank')">Wasted Time</div>
+  <div class="module" onclick="window.open('game/heartbeat.html', '_blank')">Shared Heartbeat</div>
+  <div class="module" onclick="window.open('shelf.5.0.html', '_blank')">Midnight Reverie</div>
+  <div class="module" onclick="window.open('playlist.html', '_blank')">Valentine playlist</div>
+  <div class="module" onclick="window.open('game/twitter.html', '_blank')">Twitter Page</div>
+</div>
+
+  </div>
+
+  <script>
+  setTimeout(()=>{ document.getElementById('boot-screen').style.display='none'; },4000);
+
+/* 2. 鼠标拖尾 */
+document.addEventListener('mousemove', e=>{
+  const dot=document.createElement('div');
+  dot.className='cursor-dot';
+  dot.style.left = e.clientX+'px';
+  dot.style.top  = e.clientY+'px';
+  document.body.appendChild(dot);
+  /* 1 秒后动画结束即可移除，避免 DOM 激增 */
+  setTimeout(()=>dot.remove(),1000);
+});
+  </script>
+</body>
+</html>
