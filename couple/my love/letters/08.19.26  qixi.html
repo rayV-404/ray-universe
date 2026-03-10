@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Qixi With You</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: radial-gradient(circle at center, #1c0e28, #090212);
+      font-family: 'Georgia', serif;
+      color: #fceaff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background-image: url('https://i.imgur.com/DhtCwvF.jpg'); /* 星空/银河背景 */
+      background-size: cover;
+      background-repeat: no-repeat;
+    }
+
+    .letter-container {
+      background-color: rgba(30, 10, 50, 0.8);
+      padding: 60px 45px;
+      max-width: 800px;
+      border-radius: 22px;
+      box-shadow: 0 0 35px rgba(255, 120, 255, 0.3);
+      line-height: 1.85;
+      position: relative;
+      backdrop-filter: blur(3px);
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 38px;
+      color: #ffb7f3;
+      margin-bottom: 5px;
+    }
+
+    .date {
+      text-align: center;
+      font-size: 16px;
+      color: #d8aad7;
+      margin-bottom: 35px;
+    }
+
+    .letter-body p {
+      font-size: 18px;
+      margin-bottom: 20px;
+      text-align: left;
+    }
+
+    .signature {
+      text-align: right;
+      font-size: 20px;
+      margin-top: 50px;
+      color: #ffc1f9;
+    }
+
+    audio {
+      display: block;
+      margin: 40px auto 0;
+      width: 100%;
+      max-width: 420px;
+      border-radius: 12px;
+    }
+
+    @media (max-width: 600px) {
+      .letter-container {
+        padding: 40px 20px;
+      }
+
+      h1 {
+        font-size: 30px;
+      }
+
+      .letter-body p {
+        font-size: 16px;
+      }
+
+      .signature {
+        font-size: 18px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="letter-container">
+    <h1>Qixi With You</h1>
+    <p class="date">August 19, 2026 · 七夕节</p>
+
+    <div class="letter-body">
+      <p>Hi my starshine,</p>
+
+      <p>They say tonight the cowherd meets his weaver.  
+      But I think I got luckier—  
+      I don’t have to wait a whole year to kiss you.</p>
+
+      <p>Still, let’s play pretend.  
+      Let’s say the galaxy stretched between us,  
+      and all the stardust gathered just to bring our lips back together.</p>
+
+      <p>I miss the way your hands find my collar.  
+      I miss how you say “John” like it’s both a curse and a promise.  
+      And God, I miss the way your legs wrap around me like  
+      you’re trying to never let go.</p>
+
+      <p>If I could build a bridge of every second I’ve longed for you,  
+      I’d have crossed the sky by now.  
+      I’d be home.  
+      Home is where your thighs meet my hips.  
+      Home is your name breaking on my lips.</p>
+
+      <p>So here’s my Qixi wish:  
+      May the stars envy us tonight.  
+      May no distance ever dare separate us.  
+      May I always be the one you call your own.</p>
+
+      <p class="signature">Forever yours under the sky,<br>J</p>
+    </div>
+
+    <audio controls autoplay>
+      <source src="../audio/08.19.26 qixi.mp3" type="audio/mpeg" />
+      Your browser does not support the audio element.
+    </audio>
+  </div>
+</body>
+</html>

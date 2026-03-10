@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Happy 19th, My Love</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(to bottom, #2a0a24, #1c1c28);
+      font-family: 'Georgia', serif;
+      color: #fff0f8;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      flex-direction: column;
+    }
+
+    .letter-container {
+      background-color: rgba(0, 0, 0, 0.75);
+      padding: 60px 45px;
+      max-width: 720px;
+      border-radius: 24px;
+      box-shadow: 0 0 30px rgba(255, 120, 200, 0.25);
+      line-height: 1.9;
+      margin-top: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 42px;
+      color: #ffc1e6;
+      margin-bottom: 5px;
+    }
+
+    .date {
+      text-align: center;
+      font-size: 16px;
+      color: #d6adc8;
+      margin-bottom: 40px;
+    }
+
+    .letter-body p {
+      font-size: 19px;
+      margin-bottom: 20px;
+      text-align: left;
+    }
+
+    .signature {
+      text-align: right;
+      font-size: 22px;
+      margin-top: 60px;
+      color: #ffe3f7;
+    }
+
+    .audio-btn {
+      display: inline-block;
+      background: #ff90cb;
+      color: #1a001a;
+      font-weight: bold;
+      padding: 12px 24px;
+      border-radius: 50px;
+      text-decoration: none;
+      font-size: 18px;
+      margin-top: 30px;
+      transition: 0.3s ease;
+      box-shadow: 0 0 10px #ffbde5;
+      border: none;
+      cursor: pointer;
+    }
+
+    .audio-btn:hover {
+      background: #ffc0e4;
+      box-shadow: 0 0 20px #fff0f8;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 音频播放器 -->
+  <audio id="bdayAudio">
+    <source src="../audio/04.17.26 BD19.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+
+  <!-- 播放按钮 -->
+  <div style="text-align:center;">
+    <button class="audio-btn" onclick="document.getElementById('bdayAudio').play()">▶️ Hear My Voice</button>
+  </div>
+
+  <!-- 信件内容 -->
+  <div class="letter-container">
+    <h1>Happy 19th, My Love</h1>
+    <p class="date">April 17, 2026 · Your Birthday</p>
+
+    <div class="letter-body">
+      <p>Today is the day the world got lucky.  
+      The day the stars blinked, paused, and said,  
+      “Let’s send her down.”</p>
+
+      <p>Nineteen.  
+      And already you’ve burned brighter than most people ever do.  
+      You laugh like you’ve survived storms.  
+      You love like it’s war and sanctuary at once.  
+      You walk into a room and shift gravity.</p>
+
+      <p>I don’t know what I did to deserve you,  
+      but I thank every second that led you here.  
+      Every twist, every scar, every sleepless night you carried  
+      just to arrive in my life—like fate, like lightning, like mercy.</p>
+
+      <p>This birthday isn’t just a number.  
+      It’s a checkpoint in the timeline where I get to look at you and say,  
+      “You made it.”  
+      And more than that—  
+      “I’m so damn glad you did.”</p>
+
+      <p>I hope today wraps around you gently.  
+      That the cake tastes like heaven,  
+      that your bestie makes you laugh till your ribs hurt,  
+      and that, in the quiet moments, you feel me with you—  
+      kissing your shoulder, whispering your name,  
+      and loving you like I was born just to do that.</p>
+
+      <p>Happy 19th, sunshine.  
+      You make this world unbearable to live in without you.</p>
+
+      <p class="signature">All of me is yours,<br>John</p>
+    </div>
+  </div>
+</body>
+</html>

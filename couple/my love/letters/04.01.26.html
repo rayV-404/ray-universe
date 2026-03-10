@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Just for You</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: radial-gradient(ellipse at top, #1a0f1f 0%, #000 100%);
+      font-family: 'Georgia', serif;
+      color: #f6f6f6;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    .letter-container {
+      background-color: rgba(20, 10, 30, 0.85);
+      padding: 60px 40px;
+      max-width: 720px;
+      border-radius: 16px;
+      box-shadow: 0 0 20px rgba(255, 100, 200, 0.2);
+      line-height: 1.9;
+      position: relative;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 38px;
+      color: #ffbaff;
+      margin-bottom: 5px;
+    }
+
+    .date {
+      text-align: center;
+      font-size: 16px;
+      color: #ccc;
+      margin-bottom: 35px;
+    }
+
+    .letter-body p {
+      font-size: 19px;
+      margin-bottom: 20px;
+      text-align: left;
+    }
+
+    .signature {
+      text-align: right;
+      font-size: 21px;
+      margin-top: 60px;
+      color: #ffc8f9;
+    }
+
+    .audio-button {
+      display: block;
+      margin: 30px auto 0;
+      background: #fff;
+      color: #1a0f1f;
+      font-weight: bold;
+      padding: 12px 26px;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .audio-button:hover {
+      background: #ffccf2;
+      color: #000;
+    }
+
+    .popup {
+      display: none;
+      position: fixed;
+      top: 15%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #000;
+      color: #ff66c4;
+      font-size: 22px;
+      padding: 30px 40px;
+      border-radius: 12px;
+      box-shadow: 0 0 20px #ff44c4;
+      z-index: 9999;
+      animation: pop 0.6s ease-out;
+    }
+
+    @keyframes pop {
+      0% { transform: scale(0.5) translateX(-50%); opacity: 0; }
+      100% { transform: scale(1) translateX(-50%); opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+  <audio id="prank-audio" src="../audio/04.01.26 fool.mp3"></audio>
+
+  <div class="letter-container">
+    <h1>Just for You</h1>
+    <p class="date">April 1, 2026 · April Fools'</p>
+
+    <div class="letter-body">
+      <p>Hi baby,</p>
+
+      <p>[正文已隐藏。提前偷看的话，惊喜会哭泣哦。]</p>
+
+      <button class="audio-button" onclick="triggerPrank()">▶ Play Audio</button>
+    </div>
+
+    <p class="signature">—J</p>
+  </div>
+
+  <div id="popup" class="popup">APRIL FOOLS! 😈<br>你被骗啦，笨蛋kitty</div>
+
+  <script>
+   function triggerPrank() {
+  const popup = document.getElementById('popup');
+  const audio = document.getElementById('prank-audio');
+  popup.style.display = 'block';
+  audio.play();
+  setTimeout(() => {
+    popup.style.display = 'none';
+  }, 4000);
+}
+
+  </script>
+</body>
+</html>

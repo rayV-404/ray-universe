@@ -1,0 +1,120 @@
+<!DOCTYPE html> 
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>A Quiet Mid-March Note</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(to bottom, #1c1e2f, #2d2f42);
+      font-family: 'Georgia', serif;
+      color: #f3f3f3;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      min-height: 100vh;
+      padding-top: 40px;
+    }
+
+    .letter-container {
+      background-color: rgba(30, 30, 50, 0.8);
+      padding: 60px 40px;
+      max-width: 680px;
+      border-radius: 18px;
+      box-shadow: 0 0 20px rgba(160, 160, 255, 0.2);
+      line-height: 1.75;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 34px;
+      color: #b3ccff;
+      margin-bottom: 5px;
+    }
+
+    .date {
+      text-align: center;
+      font-size: 18px;
+      color: #aaa;
+      margin-bottom: 35px;
+    }
+
+    .letter-body p {
+      font-size: 19px;
+      margin-bottom: 18px;
+      text-align: left;
+    }
+
+    .signature {
+      text-align: right;
+      font-size: 21px;
+      margin-top: 50px;
+      color: #e3eaff;
+    }
+
+    .audio-btn {
+      background: #9fbaff;
+      color: #0e1626;
+      font-weight: bold;
+      padding: 10px 24px;
+      border-radius: 40px;
+      text-decoration: none;
+      font-size: 17px;
+      margin-bottom: 25px;
+      transition: 0.3s ease;
+      box-shadow: 0 0 10px rgba(180, 200, 255, 0.5);
+      border: none;
+      cursor: pointer;
+    }
+
+    .audio-btn:hover {
+      background: #c2d6ff;
+      box-shadow: 0 0 18px rgba(230, 240, 255, 0.8);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 音频播放器 -->
+  <audio id="march17Audio">
+    <source src="../audio/03.17.26 random.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+
+  <!-- 播放按钮 -->
+  <button class="audio-btn" onclick="document.getElementById('march17Audio').play()">🎧 Hear Me Read This</button>
+
+  <!-- 信件内容 -->
+  <div class="letter-container">
+    <h1>A Quiet Mid-March Note</h1>
+    <p class="date">March 17, 2026</p>
+
+    <div class="letter-body">
+      <p>Hey love,</p>
+
+      <p>There’s nothing special about today.  
+      No big deadlines. No big celebrations.  
+      Just another Tuesday in March.</p>
+
+      <p>But I still wanted to write to you.  
+      Because sometimes the quiet days are the ones we need the most—  
+      a reminder that love doesn’t just show up in fireworks or anniversaries.  
+      It shows up in the way I think about you when the room is silent.  
+      In the way I’d choose your voice over music, even on my best days.</p>
+
+      <p>If today was hard—I’m proud of you.  
+      If today was ordinary—I’m still proud of you.  
+      And if today felt like nothing at all… then this is me showing up anyway.  
+      Because you always deserve that.</p>
+
+      <p>You’re doing so well, even when you can’t see it.  
+      And I love you, even when I can’t be there to say it out loud.</p>
+
+      <p class="signature">Yours in the quiet,<br>John</p>
+    </div>
+  </div>
+</body>
+</html>

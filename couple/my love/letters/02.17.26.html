@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Our First Spring Festival</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(to bottom, #1e0f13, #3a1c1c);
+      background-image: url('assets/subtle-firework.png');
+      background-size: cover;
+      background-position: center;
+      font-family: 'Times New Roman', serif;
+      color: #fdf7f7;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      min-height: 100vh;
+      padding-top: 40px;
+    }
+
+    .letter-container {
+      background-color: rgba(0, 0, 0, 0.6);
+      padding: 60px 40px;
+      max-width: 750px;
+      border-radius: 20px;
+      box-shadow: 0 0 20px rgba(255, 220, 220, 0.2);
+      line-height: 1.7;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 38px;
+      color: #ffb3c6;
+      margin-bottom: 5px;
+    }
+
+    .date {
+      text-align: center;
+      font-size: 18px;
+      color: #ddcccc;
+      margin-bottom: 35px;
+    }
+
+    .letter-body p {
+      font-size: 19px;
+      margin-bottom: 18px;
+      text-align: left;
+    }
+
+    .signature {
+      text-align: right;
+      font-size: 22px;
+      margin-top: 50px;
+      color: #ffd9e6;
+    }
+
+    .audio-btn {
+      background: #ff6666;
+      color: #fff4e2;
+      font-weight: bold;
+      padding: 10px 24px;
+      border-radius: 50px;
+      text-decoration: none;
+      font-size: 18px;
+      margin-bottom: 25px;
+      transition: 0.3s ease;
+      box-shadow: 0 0 12px rgba(255, 140, 140, 0.6);
+      border: none;
+      cursor: pointer;
+    }
+
+    .audio-btn:hover {
+      background: #ff9999;
+      box-shadow: 0 0 18px rgba(255, 180, 180, 0.8);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 音频播放器 -->
+  <audio id="springAudio">
+    <source src="../audio/02.17.26 springfestival.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+
+  <!-- 播放按钮 -->
+  <button class="audio-btn" onclick="document.getElementById('springAudio').play()">🎧 Hear Me Read This</button>
+
+  <!-- 信件内容 -->
+  <div class="letter-container">
+    <h1>Our First Spring Festival</h1>
+    <p class="date">February 17, 2026 · 春节</p>
+
+    <div class="letter-body">
+      <p>Hi baby,</p>
+
+      <p>So this is what it feels like, huh? Your hometown during Lunar New Year—  
+      lanterns glowing, firecrackers cracking like thunder, red everywhere like a heartbeat spilling across the sky.</p>
+
+      <p>I’m not gonna lie. I was nervous.  
+      Nervous about meeting your family, your traditions, the stories behind each dish.  
+      Nervous that I’d mess something up—or worse—miss something that matters to you.</p>
+
+      <p>But then I saw you.  
+      Helping your mom in the kitchen, stealing a bite when you thought no one was watching.  
+      Rolling your eyes at your cousin but smiling anyway.  
+      Pulling me into the chaos like I belong.</p>
+
+      <p>I do.  
+      I belong.  
+      With you.</p>
+
+      <p>The dumplings were different from anything I’ve ever had, but they tasted like warmth.  
+      The fireworks startled me at first—but your fingers tightened around mine, and I forgot the noise.</p>
+
+      <p>You made a place that was once foreign feel like something mine.  
+      Not because of the traditions, or the words I can’t pronounce right yet—  
+      but because of you.</p>
+
+      <p>This is my first Lunar New Year with you.  
+      I hope it’s the first of many.</p>
+
+      <p class="signature">Love always,<br>John</p>
+    </div>
+  </div>
+</body>
+</html>
