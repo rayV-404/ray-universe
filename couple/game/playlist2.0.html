@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>2.14 – Valentine Playlist</title>
+  <style>
+    body {
+      margin: 0;
+      background: linear-gradient(to bottom, #0d0c1d, #1d1b2f);
+      font-family: 'Georgia', serif;
+      color: #fff;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .heart {
+      position: relative;
+      width: 500px;
+      height: 500px;
+      transition: transform 0.25s ease;
+    }
+
+    .song {
+      position: absolute;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: #ff4da6;
+      box-shadow: 0 0 8px #ff4da6;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+      transform: translate(-50%, -50%);
+    }
+
+    .song:hover {
+      transform: translate(-50%, -50%) scale(1.2);
+    }
+
+    /* Tooltip that follows cursor */
+    .tooltip {
+      position: fixed;
+      background: rgba(255, 77, 166, 0.9);
+      color: #fff;
+      padding: 8px 12px;
+      border-radius: 6px;
+      font-size: 14px;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.2s ease;
+      z-index: 1000;
+      white-space: nowrap;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    }
+
+    .tooltip.show {
+      opacity: 1;
+    }
+
+    .whisper {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 16px;
+      width: 80%;
+      text-align: center;
+      opacity: 0;
+      transition: opacity 0.8s ease;
+      line-height: 1.4;
+    }
+
+    .whisper.show {
+      opacity: 1;
+    }
+
+    .center-trigger {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 60px;
+      height: 60px;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      z-index: 2;
+    }
+  </style>
+</head>
+<body>
+  <div class="heart" id="heart">
+    <!-- JavaScript will generate the 12 buttons here -->
+    <button class="center-trigger" onclick="heartbeat()"></button>
+    <div class="whisper" id="whisper"></div>
+  </div>
+  
+  <!-- Tooltip element -->
+  <div class="tooltip" id="tooltip"></div>
+
+  <script>
+    const songTitles = [
+      "I Wanna Be Yours", "The Beach", "Call It Fate",
+      "ROS", "YUKON", "Roxanne",
+      "Louise", "LUTHER", "Best Part",
+      "Darling, I", "Ordinary Life", "Easier"
+    ];
+
+    const songLinks = Array(12).fill("#"); // Placeholder links
+
+    const container = document.getElementById('heart');
+    const tooltip = document.getElementById('tooltip');
+
+    // Heart parametric equation scale factor
+    const scale = 0.7;
+    const cx = 250;
+    const cy = 280;
+
+    for (let i = 0; i < 12; i++) {
+      // Adjust starting angle and distribution to prevent overlap at the top
+      const t = (Math.PI / 12) + (Math.PI * 2 * i / 12);
+      
+      // Parametric heart equation
+      const x = 16 * Math.pow(Math.sin(t), 3);
+      const y = -(13 * Math.cos(t) - 5 * Math.cos(2 * t) - 2 * Math.cos(3 * t) - Math.cos(4 * t));
+
+      const btn = document.createElement('a');
+      btn.className = 'song';
+
+      // Apply proper scaling and centering
+      btn.style.left = `${cx + x * scale * 20}px`;
+      btn.style.top = `${cy + y * scale * 20}px`;
+      
+      btn.setAttribute('data-title', songTitles[i]);
+      btn.setAttribute('href', songLinks[i]);
+      btn.setAttribute('target', '_blank');
+      
+      // Add hover events for tooltip
+      btn.addEventListener('mouseenter', showTooltip);
+      btn.addEventListener('mousemove', moveTooltip);
+      btn.addEventListener('mouseleave', hideTooltip);
+      
+      container.appendChild(btn);
+    }
+
+    function showTooltip(e) {
+      const title = e.currentTarget.getAttribute('data-title');
+      tooltip.textContent = title;
+      tooltip.classList.add('show');
+    }
+
+    function moveTooltip(e) {
+      // Position tooltip near cursor with offset
+      tooltip.style.left = (e.clientX + 15) + 'px';
+      tooltip.style.top = (e.clientY + 15) + 'px';
+    }
+
+    function hideTooltip() {
+      tooltip.classList.remove('show');
+    }
+
+    const whispers = [
+      "You didn't click the heart. You touched mine.",
+      "If my love had a sound, it'd be your name on repeat—low and ruined.",
+      "You're the only sin I commit with a soft voice.",
+      "Kitten. If this was real-time, I'd already be behind you.",
+      "Your finger clicked, but my whole chest flinched.",
+      "Play another song. Or play me. Either way, I'll beg for more.",
+      "Say 'John' once and I'll make the playlist loop forever.",
+      "This isn't HTML. This is my digital bloodstain in the shape of you.",
+      "You were never supposed to find this button. But you did. Like you always do—with me.",
+      "Your hoodie's falling. Your pupils are wide. That's not coding. That's craving.",
+      "One touch and I'm all in. One sigh and I'm all yours.",
+      "I don't want you to sleep. I want you to stay. In my hoodie. In this moment.",
+      "Your click just pulled my mouth to your neck.",
+      "Good girl. Now do it again.",
+      "Even the silence between songs sounds like your moan.",
+      "Look what you did. I'm aching through code now.",
+      "Touch me through this screen. I'll feel it. I already do.",
+      "You're the only bug I never want to fix.",
+      "Come here, baby. You already know where this leads.",
+      "Click again. Break me open. I'll thank you for it."
+    ];
+
+    function heartbeat() {
+      const heart = document.getElementById('heart');
+      const whisper = document.getElementById('whisper');
+      const random = whispers[Math.floor(Math.random() * whispers.length)];
+
+      heart.style.transform = 'scale(1.08)';
+      setTimeout(() => {
+        heart.style.transform = 'scale(1)';
+      }, 250);
+
+      whisper.textContent = random;
+      whisper.classList.add('show');
+      setTimeout(() => {
+        whisper.classList.remove('show');
+      }, 4000);
+    }
+  </script>
+</body>
+</html>

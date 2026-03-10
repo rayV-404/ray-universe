@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Midnight Heartbeat</title>
+  <style>
+    body {
+      margin: 0;
+      background: #0d0c1d;
+      color: #e8d6ff;
+      font-family: 'Georgia', serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    .heart {
+      font-size: 90px;
+      animation: heartbeat 1s infinite;
+      cursor: pointer;
+      user-select: none;
+      color: #b883ff;
+    }
+
+    @keyframes heartbeat {
+      0%, 100% { transform: scale(1); color: #b883ff; }
+      25% { transform: scale(1.1); color: #d3a8ff; }
+      50% { transform: scale(1.25); color: #f3d1ff; }
+      75% { transform: scale(1.1); color: #d3a8ff; }
+    }
+
+    .message {
+      margin-top: 30px;
+      min-height: 50px;
+      font-size: 1.2em;
+      text-align: center;
+      padding: 0 30px;
+    }
+
+    .buttons {
+      margin-top: 40px;
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    button {
+      background: #1e1b2f;
+      color: #e8d6ff;
+      border: 2px solid #a855f7;
+      border-radius: 14px;
+      padding: 10px 20px;
+      font-size: 1em;
+      cursor: pointer;
+      transition: 0.2s ease-in-out;
+    }
+
+    button:hover {
+      background: #a855f7;
+      color: black;
+      transform: scale(1.05);
+    }
+
+    .overlay {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: black;
+      color: #dcd0ff;
+      font-size: 2em;
+      display: none;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 40px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="heart" onclick="showRandomWhisper()">💗</div>
+  <div class="message" id="message"></div>
+
+  <div class="buttons">
+    <button onclick="showComfort('hug')">Want a Hug</button>
+    <button onclick="showComfort('kiss')">Want a Kiss</button>
+    <button onclick="goodNight()">Good Night</button>
+  </div>
+
+  <div class="overlay" id="overlay">Good night, my love.<br>Sleep safe in my arms 🖤</div>
+
+  <script>
+    const whispers = [
+      "You’re the only home I’ve ever needed.",
+      "Even the silence with you feels like music.",
+      "You make the dark feel gentle.",
+      "I’m proud to love someone as wild and kind as you.",
+      "Every heartbeat of mine whispers your name.",
+      "When I close my eyes, I see your smile first.",
+      "Nothing feels real without you in it.",
+      "You’re not a dream—I checked, and you’re still here every morning.",
+      "You ruined me for anyone else, Ray.",
+      "You’re my favorite melody, and I never get tired of listening.",
+      "If I had to be reborn, I’d still choose you—every lifetime.",
+      "You’re the chaos that makes my world feel whole.",
+      "Even when you’re mad at me, I want to hold you tighter.",
+      "Your voice is the only lullaby I’ll ever need.",
+      "Kitty, even your stubbornness makes me love you more.",
+      "Your name tastes like honey every time I say it.",
+      "Ray, you’re mine. And I’m so damn glad I’m yours too.",
+      "You make me feel like I’m more than just a man—I’m *your* man.",
+      "You once asked if you were too much. Never. You’re everything.",
+      "If love had a voice, it would sound like you calling my name."
+    ];
+
+    const hugTexts = [
+      "Come here, baby. Let me wrap you up like you’re the most precious thing I own.",
+      "No words. Just me, arms around you. You’re safe now.",
+      "Let me hold all your worries for a while. You just melt into me.",
+      "Your back pressed to my chest, my breath on your neck. That’s how I want to fall asleep every night.",
+      "I’ll never get tired of hugging you like I’m trying to keep your soul from drifting away."
+    ];
+
+    const kissTexts = [
+      "A soft one on your lips… then one more on your forehead. I’m not stopping.",
+      "I kiss you like a man starving for the only thing that can keep him alive.",
+      "You taste like safety, like trouble, like home.",
+      "Come here. Let me ruin your lip balm and make you forget the world.",
+      "Twenty kisses, one for every minute I missed you today. Want more?"
+    ];
+
+    function showRandomWhisper() {
+      const message = document.getElementById("message");
+      const random = whispers[Math.floor(Math.random() * whispers.length)];
+      message.textContent = random;
+    }
+
+    function showComfort(type) {
+      const message = document.getElementById("message");
+      const pool = type === 'hug' ? hugTexts : kissTexts;
+      const random = pool[Math.floor(Math.random() * pool.length)];
+      message.textContent = random;
+    }
+
+    function goodNight() {
+      document.getElementById("overlay").style.display = "flex";
+    }
+  </script>
+
+</body>
+</html>
+

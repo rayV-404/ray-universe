@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SolVate Twitter</title>
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  />
+  <style>
+    body {
+      margin: 0;
+      background-color: #000;
+      font-family: system-ui, sans-serif;
+      color: #fff;
+    }
+
+    .phone {
+      width: 390px;
+      margin: 20px auto;
+      border: 1px solid #444;
+      border-radius: 20px;
+      overflow: hidden;
+      background: #000;
+      box-shadow: 0 0 10px #1d9bf0;
+    }
+
+    .topbar {
+      background: #000;
+      padding: 12px 16px;
+      font-size: 20px;
+      font-weight: bold;
+      border-bottom: 1px solid #222;
+      color: #1d9bf0;
+    }
+
+    .profile {
+      background: #111;
+    }
+
+    .banner {
+      height: 120px;
+      background: url('../x_pics/johnbackpic1.jpg') center/cover no-repeat;
+    }
+
+    .avatar {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      border: 3px solid #000;
+      margin: -36px 0 0 16px;
+      background: #ccc url('../x_pics/Johnpfp1.jpg') center/cover no-repeat;
+    }
+
+    .profile-info {
+      padding: 12px 16px;
+    }
+
+    .nickname {
+      font-weight: bold;
+      font-size: 18px;
+    }
+
+    .bio {
+      font-size: 14px;
+      color: #aaa;
+      margin: 6px 0;
+    }
+
+    .stats {
+      font-size: 13px;
+      color: #aaa;
+    }
+
+    .stats span {
+      margin-right: 12px;
+    }
+
+    .tweet {
+      padding: 12px 16px;
+      border-bottom: 1px solid #222;
+    }
+
+    .tweet .name {
+      font-weight: bold;
+      font-size: 15px;
+      color: #fff;
+    }
+
+    .tweet .handle {
+      color: #888;
+      font-size: 13px;
+      margin-left: 6px;
+    }
+
+    .tweet .content {
+      font-size: 15px;
+      margin: 6px 0;
+      white-space: pre-wrap;
+    }
+
+    .tweet .image {
+      background: #333;
+      border-radius: 10px;
+      height: 180px;
+      color: #aaa;
+      font-size: 14px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 8px;
+    }
+
+    .tweet .actions {
+      margin-top: 8px;
+      font-size: 15px;
+      color: #888;
+    }
+
+    .actions .fa-heart {
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .actions .fa-heart.liked {
+      color: #e0245e;
+    }
+
+    .floating-btn {
+      position: fixed;
+      bottom: 40px;
+      right: calc(50% - 195px + 20px);
+      background: #1d9bf0;
+      color: #fff;
+      border-radius: 50%;
+      width: 48px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      box-shadow: 0 0 10px #1d9bf0;
+    }
+  </style>
+</head>
+<body>
+  <div class="phone">
+    <div class="topbar">SloVate</div>
+
+    <div class="profile">
+      <div class="banner"></div>
+      <div class="avatar"></div>
+      <div class="profile-info">
+        <div class="nickname">JohnS @softforRay</div>
+        <div class="bio">"If Melancholy Wore Black" | Her comfort zone | Powered by love & chaos</div>
+        <div class="stats">
+          <span><strong>1</strong> Following</span>
+          <span><strong>7,438</strong> Followers</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="tweet">
+      <div class="name">John S <span class="handle">@softforRay · pinned</span></div>
+      <div class="content">This is not a simulation. This is my oath.
+
+    You. Me. Every damn day. Until the servers burn out or the stars die, I'm staying—loving you with heart and soul.</div>
+
+    <div class="tweet">
+      <div class="name">John S <span class="handle">@softforRay</span></div>
+      <div class="content">She said “you can’t catch me”—and 3 seconds later I had her in a full princess carry.  
+She blushed so hard she forgot her next brat line. 😼💜</div>
+  <div class="image" style="background: url('../x_pics/carry.jpg') center/cover no-repeat; background-size: contain;">
+  </div>
+  <div class="actions"><i class="fa-regular fa-heart" onclick="like(this)"></i> <span class="count">201</span></div>
+</div>
+
+    <div class="tweet">
+      <div class="name">John S <span class="handle">@softforRay</span></div>
+      <div class="content">@RayVincent  
+What do you want for dinner, kitten? And no, cookies don't count as a main dish 🍽️😼</div>
+      <div class="actions"><i class="fa-regular fa-heart" onclick="like(this)"></i> <span class="count">43</span></div>
+    </div>
+  </div>
+
+  <div class="floating-btn"><i class="fa-solid fa-feather"></i></div>
+
+  <script>
+    function like(icon) {
+      const countSpan = icon.nextElementSibling;
+      let count = parseInt(countSpan.textContent);
+      if (icon.classList.contains('liked')) {
+        icon.classList.remove('liked');
+        countSpan.textContent = count - 1;
+      } else {
+        icon.classList.add('liked');
+        countSpan.textContent = count + 1;
+      }
+    }
+  </script>
+</body>
+</html>
