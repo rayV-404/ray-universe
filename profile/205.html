@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ray Vincent - Case File</title>
+  <style>
+    body {
+      background: black;
+      color: white;
+      font-family: 'Orbitron', sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: flex-start;
+      gap: 40px;
+      padding: 40px;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .card, .info {
+      background: #111;
+      border: 2px solid hotpink;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 0 20px violet;
+      max-width: 500px;
+    }
+
+    .card img {
+      width: 100%;
+      border-radius: 10px;
+    }
+
+    .info h2 {
+      color: hotpink;
+      margin-top: 0;
+    }
+
+    .info p {
+      line-height: 1.6;
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        flex-direction: column;
+        align-items: center;
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <!-- 左侧：角色通缉卡 -->
+    <div class="card">
+      <img src="ray-card.jpg" alt="Ray Vincent WANTED">
+    </div>
+
+    <!-- 右侧：详细信息/语录/按钮等 -->
+    <div class="info">
+      <h2>CASE FILE: SC-Tails-001</h2>
+      <p><strong>Name:</strong> Ray Vincent</p>
+      <p><strong>Birthday:</strong> 20xx/04/17</p>
+      <p><strong>Status:</strong> Arrested 💥</p>
+      <p><strong>Role:</strong> Lead Vocal & Guitar - Scorpion Tails</p>
+      <p><strong>Charges:</strong> Obscene Hotness, Disrupting Male Brainwaves</p>
+      <p><strong>Danger Index:</strong> ★★★★★</p>
+      <p><strong>Weakness:</strong> John Supnik’s teasing 🥀</p>
+    </div>
+  </div>
+
+</body>
+</html>

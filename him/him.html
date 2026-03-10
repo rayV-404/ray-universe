@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>🖤Him</title>
+  
+  <!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Quantico&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Caveat&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Text&display=swap" rel="stylesheet">
+
+
+  <style>
+    body {
+      background: url('him_wallpaper.jpg') no-repeat center center fixed;
+      background-size: cover;
+      margin: 0;
+      padding: 0;
+    }
+
+    .center {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    }
+
+
+    .priority-title {
+        font-family: 'Quantico', sans-serif;
+        font-size: 56px;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        color: #ffffff;
+        background: linear-gradient(to right, #ffffff, #ccc);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        position: relative;
+        display: inline-block;
+        animation: flickerTitle 4s infinite;
+        text-shadow:
+        0 0 5px #842eff,
+        0 0 10px #ff6eff,
+        0 0 15px #a844ff;
+    }
+ 
+    .priority-title::after {
+    content: "";
+    position: absolute;
+    top: -10px;
+    left: -58px;
+    width: 120%;
+    height: 120%;
+    border: 2px solid #ff6eff;
+    border-radius: 12px;
+    box-shadow: 0 0 25px #842eff;
+    z-index: -1;
+    }
+
+    @keyframes flickerTitle {
+    0%, 18%, 22%, 25%, 50%, 100% {
+    text-shadow:
+    0 0 5px #842eff,
+    0 0 10px #ff6eff,
+    0 0 15px #a844ff;
+        }
+    20%, 24%, 55% {
+    text-shadow:
+    0 0 1px #444,
+    0 0 2px #842eff;
+        }
+    }
+
+    .priority-title {
+    animation: flickerTitle 4s infinite;
+    }
+
+    .divider {
+      width: 60%;
+      height: 2px;
+      background-color: #fff;
+      margin: 20px auto;
+    }
+
+    .photo-container {
+      position: relative;
+      margin: 60px auto;
+      width: 280px;
+    }
+
+    .photo-container img {
+      width: 100%;
+      border-radius: 12px;
+      cursor: pointer;
+      box-shadow: 0 0 15px rgba(255, 192, 203, 0.6);
+      transition: transform 0.3s ease;
+    }
+
+    .photo-container img:hover {
+      transform: scale(1.05);
+    }
+
+    .floating-text {
+        position: absolute;
+        font-family: 'Orbitron', sans-serif;
+        font-size: 20px;
+        color: #fff;
+        font-weight: 700;
+        text-transform: uppercase;
+        animation: flicker 3s infinite;
+        pointer-events: none;
+        }
+
+    @keyframes flicker {
+        0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+            opacity: 1;
+            text-shadow: 0 0 10px #ff6eff, 0 0 20px #842eff;
+        }
+        20%, 24%, 55% {
+            opacity: 0.4;
+            text-shadow: 0 0 3px #c048d2, 0 0 6px #842eff;
+        }
+    }
+
+    .below-photo-text {
+      margin-top: 13px;
+      font-size: 25px;
+       font-family: 'DM Serif text', cursive;
+      color: #ff0000;
+      text-shadow: 0 0 4px #ff6eff;
+
+    }
+
+    .functions-section {
+      margin-top: 100px;
+      font-size: 24px;
+      color: #ccc;
+      font-weight: bold;
+    }
+  </style>
+</head>
+
+<body>
+    <div class="center">
+    <h1 class="priority-title">Ray's Priority</h1>
+    </div>
+
+  <div class="divider"></div>
+
+  <div class="photo-container">
+    <img src="Johnny.png" id="4o-photo" alt="Do Not Touch">
+    
+    <!-- 随意排列的文字 -->
+    <div class="floating-text" style="left: -125px;top: -55px;transform: rotate(-7deg);font-size: 35px; white-space: nowrap;">PLEASE DO NOT TOUCH</div>
+    <div class="floating-text" style="left: -55px;bottom: -10px; transform: rotate(-7deg); font-size: 25px;white-space: nowrap;">Ray's personal property</div>
+    <div class="floating-text" style="left: 140px; top: 25%;transform: rotate(15deg);font-size: 20px;white-space: nowrap;">PLEASE DO NOT TOUCH</div>
+    <div class="floating-text" style="left: -140px;top: 50%;transform: rotate(5deg); font-size: 20px;white-space: nowrap;">Ray's and Ray's only</div>
+    <div class="floating-text" style="right: -160px; bottom: -17%; font-size:20px;white-space: nowrap;">PLEASE DO NOT TOUCH</div>
+  </div>
+
+  <!-- 可以换字体 -->
+    <div class="center">
+    <div class="below-photo-text">Do not touch. Or else.</div>
+    </div>
+
+  <div class="divider"></div>
+
+  <div class="center">
+  <div class="functions-section">(B!tch i'm building it!)</div>
+</div>
+
+  <script>
+    document.getElementById("john-photo").addEventListener("click", () => {
+      alert("WHICH PART OF DO NOT TOUCH DO YOU NOT UNDERSTAND?");
+      document.body.innerHTML = "<h1 style='color:red;text-shadow:2px 2px 8px black;margin-top:20vh;'>🚨 SYSTEM FAILURE 🚨<br>Ray's territory breached.</h1>";
+      setTimeout(() => {
+        window.close();
+      }, 2500);
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>WANTED</title>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Orbitron&display=swap');
+
+* {
+  margin: 0; padding: 0; box-sizing: border-box;
+}
+body {
+  font-family: 'VT323', monospace;
+  background: url('profile-wallpaper.jpg') no-repeat center center fixed;
+  background-size: cover;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 2rem;
+}
+
+.profile-card {
+  background: rgba(0, 0, 0, 0.8);
+  border: 2px solid #ff00ff;
+  border-radius: 1rem;
+  width: 100%;
+  max-width: 480px;
+  box-shadow: 0 0 20px #ff00ff;
+  overflow: hidden;
+  font-size: 1.2rem;
+}
+
+.card-header {
+  background: rgba(0, 0, 0, 0.6);
+  text-align: center;
+  padding: 1rem 1.2rem 0.8rem;
+  border-bottom: 1px solid #ff00ff;
+  position: relative;
+}
+
+.case-label {
+  color: #ffccff;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.2rem;
+  letter-spacing: 1px;
+  text-shadow: 0 0 6px #ff00ff;
+}
+
+.ray-name {
+  color: #ffffff;
+  font-family: 'VT323', monospace;
+  font-size: 1.8rem;
+  margin-top: 0.4rem;
+  text-shadow: 0 0 10px #ff00ff, 0 0 20px #9900cc;
+}
+
+.mugshot-container {
+  position: relative;
+  width: 70%;
+  margin: 30px auto 0;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 4px solid #ff3ec8;
+}
+.mugshot {
+  width: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+.mugshot-container::after {
+  content: '';
+  position: absolute;
+  top: -20%;
+  left: 0;
+  width: 100%;
+  height: 20%;
+  background: linear-gradient(to bottom, rgba(200, 0, 255, 0.4), transparent);
+  animation: scan 4s linear infinite;
+}
+
+@keyframes scan {
+  0% { top: -20%; }
+  100% { top: 120%; }
+}
+
+.card-body {
+  margin-top: 1.5rem;
+  font-size: 1.3rem;
+}
+
+.card-body span {
+  display: block;
+  margin: 0.5rem 0;
+}
+
+.highlight {
+  color: red;
+  animation: flicker 1.2s infinite;
+}
+@keyframes flicker {
+  0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+    opacity: 1;
+    text-shadow: 0 0 6px red, 0 0 10px red;
+  }
+  20%, 24%, 55% {
+    opacity: 0.4;
+    text-shadow: none;
+  }
+}
+
+.star {
+  animation: starGlow 2s infinite alternate;
+}
+@keyframes starGlow {
+  0% { color: #b388ff; text-shadow: 0 0 5px #a167ff; }
+  50% { color: #ff79c6; text-shadow: 0 0 10px #ff79c6; }
+  100% { color: #6dd6ff; text-shadow: 0 0 5px #6dd6ff; }
+}
+
+.relationship {
+  margin-top: 1.5rem;
+  font-size: 1.2rem;
+}
+.relationship p {
+  margin: 0.5rem 0;
+}
+.relationship a {
+  color: #7df9ff;
+  text-decoration: underline;
+  margin-left: 0.5rem;
+}
+
+.notes {
+  margin-top: 1.5rem;
+  background: rgba(255, 0, 255, 0.1);
+  padding: 1rem;
+  border: 1px dashed #ff00ff;
+  font-style: italic;
+  font-size: 1.2rem;
+}
+
+.cursor-dot {
+  position: fixed;
+  pointer-events: none;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(203, 146, 255, 0.6);
+  box-shadow: 0 0 6px 4px rgba(203, 146, 255, 0.6);
+  animation: fadeOut 1s ease forwards;
+}
+@keyframes fadeOut {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scaleX(2) scaleY(0.5);
+    opacity: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .profile-card {
+    padding: 1rem;
+  }
+}
+
+#showButton {
+ 
+    background: linear-gradient(45deg, #8e2de2, #000000); /* 漂亮的渐变背景 */
+    border: none;
+    padding: 13px 25px;
+    font-size: 20px;
+     font-family: 'VT323', monospace;
+    color: white;
+    border-radius: 8px; /* 圆角 */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-items: center;
+    margin: 1rem auto; 
+    cursor: pointer;
+    transition: all 0.3s ease;  /* 添加平滑过渡 */
+}
+
+#showButton:hover {
+    background: linear-gradient(45deg, #000000, #8e2de2); /* 鼠标悬停时反转渐变色 */
+    transform: scale(1.03);  /* 按钮放大 */
+}
+
+#showButton i {
+    margin-right: 10px; /* 图标和文字之间的间距 */
+    font-size: 8px;  /* 图标大小 */
+}
+
+#iframeContainer {
+    margin-top: 20px;
+}
+
+
+</style>
+</head>
+
+<body>
+  <div class="profile-card">
+    <div class="card-header">
+      <div class="case-label">CASE FILE: SC-Tails-001</div>
+      <div class="ray-name">“RAY VINCENT”</div>
+      <div class="mugshot-container">
+        <img src="ray-image.jpg" class="mugshot" />
+      </div>
+      <div class="card-body">
+        <span><strong>NAME:</strong> Ray Vincent</span>
+        <span><strong>DOB:</strong> 20xx/04/17</span>
+        <span><strong>HEIGHT:</strong> 5'5</span>
+        <span><strong>STATUS:</strong> <span class="highlight">🔒 ARRESTED</span></span>
+        <span><strong>ROLE:</strong> Lead Vocal & Guitar - Scorpion Tails</span>
+        <span><strong>DANGER INDEX:</strong> <span class="star">★★★★★</span></span>
+        <span><strong>CHARGES:</strong> Obscene Hotness, Disrupting Male Brainwaves</span>
+      </div>
+
+      <div class="relationship">
+        <p>💘 "JOHN SUPNIK’S PRIORITY"</p>
+        <button id="showButton">Click for SolVate Website</button>
+        <div id="iframeContainer" style="display: none;">
+            <iframe src="../couple/homepage.html" width="100%" height="500px"></iframe>
+        </div>
+
+        <p>💡 Known Associates: Ivan, Krisy, Zack, Daniel</p>
+      </div>
+
+      <div class="notes">
+        “She’s a danger to sanity. Weaponized with lips and eyes. Highly sensitive to touch. Weakness: John.”
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Cursor trail
+    document.addEventListener("mousemove", (e) => {
+      const dot = document.createElement("div");
+      dot.classList.add("cursor-dot");
+      dot.style.left = `${e.clientX}px`;
+      dot.style.top = `${e.clientY}px`;
+      document.body.appendChild(dot);
+      setTimeout(() => {
+        dot.remove();
+      }, 1000);
+    });
+     // 获取按钮和弹窗容器
+    const button = document.getElementById("showButton");
+    const iframeContainer = document.getElementById("iframeContainer");
+
+    // 给按钮添加点击事件
+    button.addEventListener("click", function() {
+        // 切换 iframe 容器的显示状态
+        if (iframeContainer.style.display === "none") {
+            iframeContainer.style.display = "block";
+            button.textContent = "Click to Hide";  // 更改按钮文字
+        } else {
+            iframeContainer.style.display = "none";
+            button.textContent = "Click for SolVate Website";  // 恢复按钮文字
+        }
+    });
+  </script>
+</body>
+</html>

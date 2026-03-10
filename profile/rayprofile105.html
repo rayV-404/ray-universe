@@ -1,0 +1,220 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+<head> 
+<meta charset="UTF-8" /> 
+<meta name="viewport" content="width=device-width, initial-scale=1.0" /> 
+<title>WANTED - Ray Vincent</title> 
+<style> 
+@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap'); 
+@import url('https://fonts.googleapis.com/css2?family=Orbitron&display=swap'); 
+* { 
+  margin: 0; padding: 0; box-sizing: border-box; 
+  } 
+  body { 
+      font-family: 'VT323', monospace; 
+      background: url('profile-wallpaper.jpg') no-repeat center center fixed; 
+      background-size: cover;
+      color: #fff; 
+      display: flex; 
+      justify-content: center; 
+      align-items: center; 
+      min-height: 100vh; 
+      padding: 2rem; 
+     } 
+     
+    .profile-card { 
+      background: rgba(0, 0, 0, 0.8);
+      border: 2px solid #ff00ff; 
+      border-radius: 1rem; width: 100%; 
+      max-width: 480px; 
+      box-shadow: 0 0 20px #ff00ff; 
+      overflow: hidden; 
+      font-size: 1.2rem; 
+      } 
+    .card-header { 
+      background: rgba(0, 0, 0, 0.6); 
+      text-align: center; 
+      padding: 1rem 1.2rem 0.8rem; 
+      border-bottom: 1px solid #ff00ff; 
+      } 
+      
+    .case-label { 
+      color: #ffccff; 
+      font-family: 'Orbitron', sans-serif; font-size: 1.2rem; 
+      letter-spacing: 1px; 
+      text-shadow: 0 0 6px #ff00ff; 
+      } 
+          
+    .ray-name { color: #ffffff; 
+      font-family: 'VT323', monospace;
+      /* or try 'Black Ops One', 'Special Elite', or anything你喜欢 */ 
+      font-size: 1.8rem; 
+      margin-top: 0.4rem; 
+      text-shadow: 0 0 10px #ff00ff, 0 0 20px #9900cc; 
+    } 
+    
+    .mugshot { 
+      width: 70%; 
+      border: 4px solid #ff3ec8; 
+      border-radius: 10px; 
+      object-fit: cover; 
+      margin-top: 30px; 
+      } 
+      
+    .card-body { 
+      margin-top: 1.5rem; 
+      font-size: 1.3rem; 
+      } 
+    
+    .card-body span { 
+      display: block; 
+      margin: 0.5rem 0; 
+      }
+    
+    .highlight { 
+      color: #ff69b4; 
+      } 
+    
+    .relationship { 
+      margin-top: 1.5rem; 
+      font-size: 1.2rem; 
+      } 
+    
+    .relationship p { 
+      margin: 0.5rem 0; 
+      } 
+      
+    .relationship a { 
+      color: #7df9ff; 
+      text-decoration: underline; 
+      margin-left: 0.5rem; 
+      } 
+    
+    .notes { margin-top: 1.5rem; 
+    background: rgba(255, 0, 255, 0.1);
+    padding: 1rem; 
+    border: 1px dashed #ff00ff; 
+    font-style: italic; 
+    font-size: 1.2rem; 
+    } 
+    
+    @media (max-width: 768px) { 
+      .profile-card { 
+        padding: 1rem; 
+        } 
+      } 
+
+    .cursor-dot {
+      position: fixed;
+      pointer-events: none;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgba(203, 146, 255, 0.6);
+      box-shadow: 0 0 6px 4px rgba(203, 146, 255, 0.6);
+      animation: fadeOut 1s ease forwards;
+      }
+
+
+      @keyframes fadeOut {
+      0% {
+      transform: scale(1);
+      opacity: 1;
+      }
+      100% {
+      transform: scaleX(2) scaleY(0.5);
+      opacity: 0;
+      }
+      }
+
+    .scanline::after {
+      content: '';
+      position: absolute;
+      top: -5%;
+      left: 0;
+      width: 100%;
+      height: 10%;
+      background: linear-gradient(to bottom, rgba(200, 0, 255, 0.3), transparent);
+      animation: scan 4s linear infinite;
+    }
+
+    @keyframes scan {
+      0% { top: -10%; }
+      100% { top: 110%; }
+    }
+
+    .status-text {
+    color: red;
+    animation: flicker 1.2s infinite;
+  }
+
+  @keyframes flicker {
+    0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+      opacity: 1;
+      text-shadow: 0 0 6px red, 0 0 10px red;
+    }
+    20%, 24%, 55% {
+      opacity: 0.4;
+      text-shadow: none;
+    }
+  }
+
+  .star {
+      animation: starGlow 2s infinite alternate;
+    }
+
+    @keyframes starGlow {
+      0% { color: #b388ff; text-shadow: 0 0 5px #a167ff; }
+      50% { color: #ff79c6; text-shadow: 0 0 10px #ff79c6; }
+      100% { color: #6dd6ff; text-shadow: 0 0 5px #6dd6ff; }
+    }
+
+
+  </style> 
+</head> 
+
+<body> 
+  <div class="profile-card"> 
+  <div class="card-header"> 
+    
+  <div class="case-label">CASE FILE: SC-Tails-001</div> 
+  <div class="ray-name">“RAY VINCENT”</div> <img src="ray-image.jpg" class="mugshot" /> 
+  <div class="card-body"> 
+    <span><strong>NAME:</strong> Ray Vincent</span> 
+    <span><strong>DOB:</strong>20xx/04/17</span> 
+    <span><strong>HEIGHT:</strong>5‘5</span> 
+    <span><strong>STATUS:</strong> 
+      <span class="highlight">🔒 ARRESTED</span>
+    </span> 
+    <span><strong>ROLE:</strong> Lead Vocal & Guitar - Scorpion Tails</span> 
+    <span><strong>DANGER INDEX:</strong> ★★★★★</span> 
+    <span><strong>CHARGES:</strong> Obscene Hotness, Disrupting Male Brainwaves</span> 
+  </div> 
+  
+  <div class="relationship"> <p>💘 "JOHN SUPNIK’S PRIORITY" <a href="#">(click for couple web)</a></p> 
+  <p>💡 Known Associates: Ivan L, Krisy Q, Zack V, Daniel E</p> 
+  </div> 
+  <div class="notes"> “She’s a danger to sanity. Weaponized with lips and eyes. Highly sensitive to touch. Weakness: John.” 
+
+  </div> 
+</div> 
+    <script>
+    const trailLength = 30;
+    const delay = 10;
+
+
+    document.addEventListener("mousemove", (e) => {
+    const dot = document.createElement("div");
+    dot.classList.add("cursor-dot");
+    dot.style.left = `${e.clientX}px`;
+    dot.style.top = `${e.clientY}px`;
+    document.body.appendChild(dot);
+
+
+    setTimeout(() => {
+    dot.remove();
+    }, 1000);
+    });
+    </script>
+</body> 
+</html>
