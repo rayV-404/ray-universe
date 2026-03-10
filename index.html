@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RayV Universe</title>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+   <link href="https://fonts.googleapis.com/css2?family=Zen Dots&display=swap" rel="stylesheet">
+  <style>
+    body {   
+      background-image: url('home/home_wallpaper.jpg');
+      background-size: cover;
+      background-position: center center;
+      background-repeat: no-repeat;
+      margin: 0;
+      padding: 0;
+    }
+
+    h1 {
+      font-size: 42px;
+      color: #4c077a;
+      text-shadow: 0 0 8px #ccb1ff;
+    }
+
+    .menu {
+      margin-top: 60px;
+      text-align: center;
+    }
+
+    .menu a {
+      display: inline-block;
+      margin: 20px;
+      padding: 20px 40px;
+      background-color: #444;
+      border: 2px solid #ab77ff;
+      border-radius: 10px;
+      font-size: 20px;
+      color: white;
+      text-decoration: none;
+      transition: 0.3s ease-in-out;
+    }
+
+    .menu a:hover {
+      background-color: #f292ff;
+      color: black;
+      box-shadow: 0 0 10px #c6b1ff;
+      transform: scale(1.1);
+      cursor: pointer;
+    }
+
+    .floating-player {
+      font-family: 'Press Start 2P', sans-serif;
+      position: fixed;
+      bottom: 40px;
+      right: 40px;
+      width: 320px;
+      height: 110px;
+      background-color: rgba(20, 20, 30, 0.9);
+      border: 2px solid #ff77ff;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      padding: 10px;
+      gap: 10px;
+      z-index: 1000;
+      box-shadow: 0 0 20px #ff77ff;
+      backdrop-filter: blur(8px);
+      overflow: hidden;
+      cursor: grab;
+    }
+
+    .floating-player:active {
+      cursor: grabbing;
+    }
+
+    .floating-player img {
+      width: 80px;
+      height: 80px;
+      border-radius: 12px;
+      object-fit: cover;
+    }
+
+    .floating-player .info {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      overflow: hidden;
+    }
+
+    #title {
+      font-size: 11px;
+      font-weight: bold;
+      color: #ffccff;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+       margin-bottom: 6px;
+    }
+
+    #artist {
+      font-size: 9px;
+      color: #bbb;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      margin-bottom: 4px;
+    }
+
+    .progress-bar {
+      width: 100%;
+      height: 4px;
+      background-color: #333;
+      border-radius: 2px;
+      overflow: hidden;
+    }
+
+    .progress {
+      height: 100%;
+      width: 0%;
+      background-color: #ff77ff;
+    }
+
+    .controls {
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+      margin-top: 4px;
+    }
+
+    .controls button {
+      background: none;
+      border: none;
+      color: #fff;
+      font-size: 14px;
+      cursor: pointer;
+      padding: 2px 4px;
+    }
+
+    .controls button img {
+      width: 20px;
+      height: 20px;
+    }
+
+    #playPauseBtn img {
+      transition: transform 0.2s;
+    }
+
+    #playPauseBtn:hover img {
+      transform: scale(1.2);
+    }
+
+    .profile-card {
+      position: relative;
+      width: 260px;
+      height: 380px;
+      overflow: hidden;
+      border: 4px solid transparent;
+      border-radius: 18px;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      margin: 0 auto;
+    }
+
+  .profile-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+    display: block;
+  }
+
+ .profile-card:hover {
+  transform: scale(1.06); /* 放大一点点 */
+  border-color: #ff89ff; /* 更亮一些 */
+  box-shadow: 0 0 15px #ff89ff;
+}
+
+
+  .profile-overlay {
+    position: absolute;
+    bottom: -50px;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.6);
+    color: #fff;
+    text-align: center;
+    font-size: 1.2rem;
+    padding: 10px 0;
+    transition: bottom 0.3s ease;
+    font-family: 'Zen Dots', cursive;
+  }
+
+  .profile-card:hover .profile-overlay {
+    bottom: 0;
+  }
+
+  .cursor-dot {
+position: fixed;
+pointer-events: none;
+width: 8px;
+height: 8px;
+border-radius: 50%;
+background: rgba(203, 146, 255, 0.6);
+box-shadow: 0 0 6px 4px rgba(203, 146, 255, 0.6);
+animation: fadeOut 1s ease forwards;
+}
+
+
+@keyframes fadeOut {
+0% {
+transform: scale(1);
+opacity: 1;
+}
+100% {
+transform: scaleX(2) scaleY(0.5);
+opacity: 0;
+}
+}
+
+  </style>
+</head>
+<body>
+
+  <div class="cursor-glitter-container"></div>
+
+  <div style="margin-top: 30px;">
+    <img src="home/WELCOME-TO.png" alt="WELCOME TO" style="width: 300px; max-width: 90%; display:block; margin: 0 auto;">
+  </div>
+
+  <div style="display: flex; justify-content: center; align-items: center; gap: 5px;">
+  <a href="https://www.glitter-graphics.com/myspace/text_generator.php" target=_blank>
+    <img src="https://text.glitter-graphics.net/hearty/r.gif" border=0>
+    <img src="https://text.glitter-graphics.net/hearty/a.gif" border=0>
+    <img src="https://text.glitter-graphics.net/hearty/y.gif" border=0>
+    <img src="https://text.glitter-graphics.net/hearty/s.gif" border=0>
+    <img src="https://dl3.glitter-graphics.net/empty.gif" width=20 border=0>
+    <img src="https://text.glitter-graphics.net/hearty/u.gif" border=0>
+    <img src="https://text.glitter-graphics.net/hearty/n.gif" border=0>
+    <img src="https://text.glitter-graphics.net/hearty/i.gif" border=0>
+    <img src="https://text.glitter-graphics.net/hearty/v.gif" border=0>
+    <img src="https://text.glitter-graphics.net/hearty/e.gif" border=0>
+    <img src="https://text.glitter-graphics.net/hearty/r.gif" border=0>
+    <img src="https://text.glitter-graphics.net/hearty/s.gif" border=0>
+    <img src="https://text.glitter-graphics.net/hearty/e.gif" border=0></a>
+    </div>
+
+<!-- PROFILE CARD 动画入口 -->
+<div style="display: flex; justify-content: center; margin-top: 10px;">
+  <a href="profile/profile.html" class="profile-card">
+    <img src="home/ray_cat_ear.jpg" alt="Ray Vincent">
+    <div class="profile-overlay">Profile</div>
+  </a>
+</div>
+
+  <div class="menu">
+    <a href="vinyl-wall2.0/ray's vinyl room.html">🎧 Vinyl Wall</a>
+    <a href="him/him.html"> 🖤Him</a>
+  </div>
+
+  <div class="floating-player" id="floatingPlayer">
+    <img id="cover" src="vinyl-wall2.0/covers/LOST IN HEAVEN cover.jpg" alt="封面">
+    <div class="info">
+      <div id="title">DOUBT IT</div>
+      <div id="artist">Chase Atlantic</div>
+      <div class="controls">
+        <button id="prevBtn">
+          <img src="home/rewind.png" alt="prevSong">
+        </button>
+        <button id="playPauseBtn">
+          <img src="home/play.png" alt="Play" id="playPauseIcon">
+        </button>
+        <button id="nextBtn">
+          <img src="home/next.png" alt="Next">
+        </button>
+      </div>
+      <div class="progress-bar">
+        <div class="progress" id="progress"></div>
+      </div>
+    </div>
+  </div>
+
+  <audio id="audio-player" preload="auto"></audio>
+
+<script>
+const audio = document.getElementById('audio-player');
+const title = document.getElementById('title');
+const artist = document.getElementById('artist');
+const cover = document.getElementById('cover');
+const progress = document.getElementById('progress');
+const playPauseIcon = document.getElementById('playPauseIcon');
+const progressBar = document.querySelector('.progress-bar');
+const trailLength = 30;
+const delay = 10;
+
+
+document.addEventListener("mousemove", (e) => {
+const dot = document.createElement("div");
+dot.classList.add("cursor-dot");
+dot.style.left = `${e.clientX}px`;
+dot.style.top = `${e.clientY}px`;
+document.body.appendChild(dot);
+
+
+setTimeout(() => {
+dot.remove();
+}, 1000);
+});
+
+
+const songs = [
+  {
+    title: "DOUBT IT",
+    artist: "Chase Atlantic",
+    file: "vinyl-wall2.0/songs/DOUBT IT.mp3",
+    cover: "vinyl-wall2.0/covers/LOST IN HEAVEN cover.jpg"
+  },
+  {
+    title: "Cigarettes Out the Window",
+    artist: "TV Girl",
+    file: "vinyl-wall2.0/songs/Cigarettes out the Window.mp3",
+    cover: "vinyl-wall2.0/covers/Who Really Cares cover.jpg"
+  },
+  {
+    title: "W.D.Y.W.F.M?",
+    artist: "The Neighbourhood",
+    file: "vinyl-wall2.0/songs/W.D.Y.W.F.M.mp3",
+    cover: "vinyl-wall2.0/covers/sorry cover.jpg"
+  },
+  {
+    title: "Crying Lightning",
+    artist: "Arctic Monkeys",
+    file: "vinyl-wall2.0/songs/Crying Lighting.mp3",
+    cover: "vinyl-wall2.0/covers/Humbug cover.jpg"
+  }
+];
+
+let currentSong = Math.floor(Math.random() * songs.length);
+
+// 初始化
+loadSong(currentSong);
+
+function loadSong(index) {
+  audio.src = songs[index].file;
+  title.textContent = songs[index].title;
+  artist.textContent = songs[index].artist;
+  cover.src = songs[index].cover;
+
+  // 如果可以播放，就自动播放
+  audio.play().then(() => {
+    playPauseIcon.src = "home/pause.png";
+  }).catch((error) => {
+    // 如果播放失败（比如用户还没点播放），就保持暂停状态
+    playPauseIcon.src = "home/play.png";
+  });
+}
+
+// 播放暂停
+function togglePlay() {
+  if (audio.paused) {
+    audio.play();
+    playPauseIcon.src = "home/pause.png";
+  } else {
+    audio.pause();
+    playPauseIcon.src = "home/play.png";
+  }
+}
+
+// 下一首
+function nextSong() {
+  currentSong = (currentSong + 1) % songs.length;
+  loadSong(currentSong);
+}
+
+// 上一首
+function prevSong() {
+  currentSong = (currentSong - 1 + songs.length) % songs.length;
+  loadSong(currentSong);
+}
+
+// 自动下一首
+audio.addEventListener("ended", () => {
+  nextSong();
+});
+
+// 进度条更新
+audio.addEventListener("timeupdate", () => {
+  if (audio.duration) {
+    const percent = (audio.currentTime / audio.duration) * 100;
+    progress.style.width = percent + "%";
+  }
+});
+
+// 点击进度条跳转
+progressBar.addEventListener("click", (e) => {
+  const rect = progressBar.getBoundingClientRect();
+  const clickX = e.clientX - rect.left;
+  const width = rect.width;
+  const percent = clickX / width;
+  audio.currentTime = percent * audio.duration;
+});
+
+// 绑定按钮
+document.getElementById("playPauseBtn").addEventListener("click", togglePlay);
+document.getElementById("nextBtn").addEventListener("click", nextSong);
+document.getElementById("prevBtn").addEventListener("click", prevSong);
+
+    audio.addEventListener('timeupdate', () => {
+      const percent = (audio.currentTime / audio.duration) * 100;
+      progress.style.width = percent + '%';
+    });
+
+    const player = document.getElementById("floatingPlayer");
+    let offsetX, offsetY, isDragging = false;
+
+    player.addEventListener("mousedown", (e) => {
+      isDragging = true;
+      offsetX = e.clientX - player.offsetLeft;
+      offsetY = e.clientY - player.offsetTop;
+    });
+
+    document.addEventListener("mousemove", (e) => {
+      if (isDragging) {
+        player.style.left = `${e.clientX - offsetX}px`;
+        player.style.top = `${e.clientY - offsetY}px`;
+      }
+    });
+
+    document.addEventListener("mouseup", () => {
+      isDragging = false;
+    });
+  </script>
+</body>
+</html>

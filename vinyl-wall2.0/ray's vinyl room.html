@@ -1,0 +1,522 @@
+<!DOCTYPE html> 
+<html lang="zh-CN">
+  <head> 
+    <meta charset="UTF-8" /> <meta name="viewport" content="width=device-width, initial-scale=1.0"/> 
+    <title>Vinyl Room</title> 
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet" /> 
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap" rel="stylesheet" />
+
+   <style> 
+    body { 
+    margin: 0; 
+    background: url('playlist_wallpaper2.png') 
+    no-repeat 
+    center 
+    center fixed; 
+    background-size: cover; 
+    font-family: 'Orbitron', sans-serif; 
+    color: #fff; 
+    min-height: 100vh;
+    } 
+    .container { 
+    max-width: 960px; 
+    margin: 0 auto; 
+    padding: 40px 20px; 
+    text-align: center; 
+    } 
+    .title { 
+    font-size: 2.5em; 
+    color: #ff6eff; 
+    text-shadow: 0 0 10px #9f44ff; 
+    margin-bottom: 20px; 
+    } 
+    .title span { 
+    color: #fff; 
+    text-shadow: 0 0 8px #70f8ff; 
+    } 
+
+    .title-wrapper {
+    position: relative;
+    display: inline-block;
+    padding: 10px 30px;
+    margin: 40px 0 20px 40px;
+    background: rgba(185, 29, 29, 0);
+    border: 2px solid #ff8df8;
+    border-radius: 50px;
+    box-shadow: 0 0 15px #ff6eff, 0 0 30px #842eff;
+    animation: flicker 2.5s infinite;
+  }
+
+  @keyframes flicker {
+    0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+      opacity: 1;
+      box-shadow: 0 0 15px #ff6eff, 0 0 30px #842eff;
+    }
+    20%, 24%, 55% {
+      opacity: 0.4;
+      box-shadow: 0 0 5px #c048d2, 0 0 10px #842eff;
+    }
+  }
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+
+.title-wrapper h1 {
+  font-family: 'Pacifico', cursive;
+  font-size: 2.2em;
+  color: #ffffff;
+  text-shadow: 0 0 4px #ffbbff, 0 0 12px #ff6eff;
+  margin: 0;
+}
+  .ray {
+    font-family: 'Pacifico', cursive;
+    margin-right: 8px;
+  }
+
+  .vinyltitle {
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+
+    .divider { 
+    height: 2px; 
+    background: linear-gradient(to right, #ff6eff, #70faff, #ff6eff); 
+    margin: 20px auto 30px; 
+    width: 90%; 
+    opacity: 0.5; 
+    border-radius: 10px; 
+    }
+
+
+    .record-unit {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        }
+
+    .record-wall {
+        display: flex;
+        justify-content: center;
+        gap: 30px;
+        flex-wrap: wrap;
+        }
+
+        .record img {
+        width: 140px;
+        height: 140px;
+        border-radius: 50%;
+        box-shadow: 0 0 10px #9b00ff;
+        border: 8px solid #111; /* 黑胶边缘效果 */
+        transition: transform 0.3s, box-shadow 0.3s;
+        }
+    .record-card {
+    width: 160px;
+    height: 140px; 
+    padding: 15px;
+    border: 2px solid #ad78df;
+    border-radius: 18px;
+    background: radial-gradient(ellipse at 30% 20%, rgba(111, 63, 139, 0.6), rgba(10,0,20,0.7));
+    box-shadow: 0 0 6px #5e0073;
+    transition: border 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+        }
+
+
+        /* hover 时：变蓝边框（不放大） */
+        .record-card:hover {
+        border-color: #70faff;
+        }
+
+        /* 选中态（稍后可以用 JS 切换 .selected） */
+        .record-card.selected {
+        border-color: #70faff;
+        transform: scale(1.04);
+        box-shadow: 0 0 15px #70faff;
+        }
+
+
+       .vinyl {
+        width: 140px;
+        height: 140px;
+        border-radius: 50%;
+        background: radial-gradient(#ff060600 40%, #111 70%, #000 100%);
+        box-shadow: 0 0 10px #9b00ff;
+        position: relative;
+        transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .vinyl:hover {
+        transform: scale(1.08);
+        box-shadow: 0 0 15px #cc44ff;
+        }
+
+        .cover {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 50%;
+        height: 50%;
+        transform: translate(-50%, -50%);
+        border-radius: 50%;
+        object-fit: cover;
+         background-size: cover; /* fallback */
+        box-shadow: 0 0 4px #333;
+        }
+
+        .center-hole {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 10px;
+        height: 10px;
+        background: #000;
+        border: 2px solid #888;
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 2;
+        }
+
+        .song-title {
+        margin-top: 10px;
+        font-size: 0.9em;
+        color: #ff6eff;
+        text-shadow: 0 0 3px #f5e2ff;
+        }
+
+      /* 唱片机基础样式 */
+    .turntable-container {
+      position: relative;
+      width: 600px;
+      margin: 0 auto;
+    }
+
+    .turntable-base {
+      width: 100%;
+      display: block;
+    }
+
+    .tonearm {
+      position: absolute;
+      width:350px; /* 根据你的图实际大小调整 */
+      top: 30px;
+      left: 200px;
+      transform: rotate(-25deg);
+      transform-origin: 78% 15%;
+      transition: transform 0.3s ease-out;
+      pointer-events: none;
+      z-index: 99; 
+    }
+
+    .turntable-base-wrapper {
+    position: relative;
+    width: 600px;
+    height: auto;
+}
+    /* 旋转动画 */
+    .cover-rotating {
+      animation: spin 2.5s linear infinite;
+    }
+    /* 控制按钮布局 */
+    .controls {
+      position: absolute;
+      bottom: 154px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 30px;
+    }
+
+
+
+
+.controls button {
+  font-size: 24px;
+  background: #00eeff00;
+  color: rgb(108, 255, 235);
+  border: none;
+  padding: 8px 14px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
+}
+
+.controls button:hover {
+  transform: scale(1.08);
+}
+
+
+ .vinyl-mask {
+  position: absolute;
+  top: 33%;
+  left: 39%;
+  transform: translate(-50%, -50%);
+  width: 300px;
+  height: 160px;
+  overflow: hidden;
+  border-radius: 50% / 40%;
+  z-index: 5;
+  pointer-events: none;
+}
+.vinyl-cover {
+  position: absolute;
+  top: -50%;
+  left: -3%;
+  width: 320px;
+  height: 320px;
+  transform-origin: center center;
+}
+
+#playIcon {
+   line-height: 1;
+  position: relative;
+  font-family: monospace;
+  font-size: 22px;
+  display: inline-block;
+  transform: scale(1.4); /* 默认缩放 */
+  transition: transform 0.2s ease;
+}
+
+#playIcon.playing {
+  transform: scale(1);  /* 播放状态（▶）显得太大，稍微缩放 */
+ 
+}
+
+  </style>
+</head>
+
+<body>
+  <div class="container">
+  <div class="title-wrapper">
+  <h1>
+    <span class="ray">Ray’s</span>
+    <span class="vinyltitle">Vinyl Room</span>
+  </h1>
+</div>
+
+<audio id="audioPlayer"></audio>
+
+    <div class="divider"></div>
+
+    <div class="record-wall">
+
+    <div class="record-unit">
+  <div class="record-card">
+    <div class="vinyl">
+      <img class="cover" src="covers/LOST IN HEAVEN cover.jpg" alt="Record 1">
+      <div class="center-hole"></div>
+    </div> 
+</div>
+    <p class="song-title">DOUBT IT</p>
+  </div>
+   
+  <div class="record-unit">
+  <div class="record-card">
+    <div class="vinyl">
+      <img class="cover" src="covers/sorry cover.jpg" alt="Record 2">
+      <div class="center-hole"></div>
+    </div>
+    </div>
+    <p class="song-title">W.D.Y.W.F.M?</p>
+  </div>
+
+   <div class="record-unit">
+  <div class="record-card">
+    <div class="vinyl">
+      <img class="cover" src="covers/Humbug cover.jpg" alt="Record 3">
+      <div class="center-hole"></div>
+    </div>
+    </div>
+    <p class="song-title">Crying Lighting</p>
+  </div>
+</div>
+
+<div class="divider"></div>
+<div class="turntable-container">
+  <div class="turntable-base-wrapper">
+    <img src="assets/turntable.png" class="turntable-base" />
+</div>
+
+<div class="vinyl-mask">
+  <img src="" id="currentCover" class="vinyl-cover" />
+</div>
+
+  <img src="assets/tonearm.png" class="tonearm" id="tonearm" />
+  
+  <div class="controls">
+    <button id="prev">&#9664;&#9664;</button>
+   <button id="play"><span id="playIcon">⏸</span></button>
+    <button id="next">&#9654;&#9654;</button>
+  </div>
+</div>
+
+<script>
+const currentCover = document.getElementById('currentCover');
+const playBtn = document.getElementById('play');
+const tonearm = document.getElementById('tonearm');
+const turntable = document.getElementById('turntable');
+const audioPlayer = document.getElementById('audioPlayer');
+
+let isPlaying = false;
+
+playBtn.addEventListener('click', () => {
+  isPlaying = !isPlaying;
+if (isPlaying) {
+  tonearm.style.transform = 'rotate(-5deg)';
+  startRotation();
+  if (!audioPlayer.src) {
+    updateTrack(currentIndex);
+  }
+  audioPlayer.play();
+} else {
+  tonearm.style.transform = 'rotate(-20deg)';
+  stopRotation();
+  audioPlayer.pause();
+}
+const playIcon = document.getElementById('playIcon');
+
+if (isPlaying) {
+  playIcon.innerText = '⏸';
+  playIcon.classList.remove('playing');  // ⏸ 比较窄，不缩放
+  playIcon.classList.add('pause-icon');  // 添加轻微上移
+  tonearm.style.transform = 'rotate(-5deg)';
+  startRotation();
+  if (!audioPlayer.src) {
+    updateTrack(currentIndex);
+  }
+  audioPlayer.play();
+} else {
+  playIcon.innerText = '▶';
+  playIcon.classList.remove('pause-icon');  // 移除上移
+  playIcon.classList.add('playing');  // ▶ 比较宽，缩放一下
+  tonearm.style.transform = 'rotate(-20deg)';
+  stopRotation();
+  audioPlayer.pause();
+}
+
+
+
+});
+
+const tracks = [
+  {
+    title: "DOUBT IT",
+    cover: "covers/LOST IN HEAVEN cover.jpg",
+    audio: "songs/DOUBT IT.mp3"
+  },
+  {
+    title: "W.D.Y.W.F.M?",
+    cover: "covers/sorry cover.jpg",
+    audio: "songs/W.D.Y.W.F.M.mp3"
+  },
+  {
+    title: "Crying Lighting",
+    cover: "covers/Humbug cover.jpg",
+    audio: "songs/Crying Lighting.mp3"
+  }
+];
+
+let currentIndex = 0;
+
+const coverImg = document.getElementById('currentCover');
+const prevBtn = document.getElementById('prev');
+const nextBtn = document.getElementById('next');
+
+function updateTrack(index) {
+  const track = tracks[index];
+  coverImg.src = track.cover;
+  audioPlayer.src = track.audio;
+
+    // ✅ reset rotation
+  rotationAngle = 0;
+  coverImg.style.transform = `rotate(0deg)`
+  tonearm.style.transform = `rotate(${minTonearmAngle}deg)`;
+
+
+  const allTitles = document.querySelectorAll('.song-title');
+allTitles.forEach(title => {
+  if (title.innerText === tracks[currentIndex].title) {
+    title.style.color = "#c0eaff"; // 当前曲目高亮
+  } else {
+    title.style.color = "#ff6eff"; // 其他重置
+  }
+});
+
+
+  if (isPlaying) {
+    audioPlayer.play();
+  }
+}
+prevBtn.addEventListener('click', () => {
+  currentIndex = (currentIndex - 1 + tracks.length) % tracks.length;
+  updateTrack(currentIndex);
+});
+
+nextBtn.addEventListener('click', () => {
+  currentIndex = (currentIndex + 1) % tracks.length;
+  updateTrack(currentIndex);
+});
+let rotationAngle = 0;
+let animationFrameId = null;
+
+
+
+
+function rotateCover() {
+  rotationAngle += 0.5; // 旋转速度（每帧递增角度）
+  if (rotationAngle >= 360) rotationAngle -= 360;
+  currentCover.style.transform = `rotate(${rotationAngle}deg)`;
+  animationFrameId = requestAnimationFrame(rotateCover);
+}
+
+function startRotation() {
+  if (!animationFrameId) {
+    animationFrameId = requestAnimationFrame(rotateCover);
+  }
+}
+
+function stopRotation() {
+  if (animationFrameId) {
+    cancelAnimationFrame(animationFrameId);
+    animationFrameId = null;
+  }
+}
+
+const minTonearmAngle = -1;  // 播放开始时唱针的角度
+const maxTonearmAngle = 10;   // 播放结束时唱针的角度
+
+function updateTonearmAngle() {
+  if (!isPlaying || audioPlayer.duration === 0) return;
+
+  const progress = audioPlayer.currentTime / audioPlayer.duration;
+  const angle = minTonearmAngle + (maxTonearmAngle - minTonearmAngle) * progress;
+
+  tonearm.style.transform = `rotate(${angle}deg)`;
+}
+
+function updateTonearmAngle() {
+  if (!isPlaying || audioPlayer.duration === 0) return;
+
+  const progress = audioPlayer.currentTime / audioPlayer.duration;
+  const angle = minTonearmAngle + (maxTonearmAngle - minTonearmAngle) * progress;
+
+  tonearm.style.transform = `rotate(${angle}deg)`;
+}
+
+audioPlayer.addEventListener('timeupdate', () => {
+  updateTonearmAngle();
+});
+
+</script>
+
+</body>
+</html>
